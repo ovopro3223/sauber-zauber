@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npm install --no-audit --no-fund --loglevel=error 2>&1)",
+      "PowerShell($paths = @\\(\"$env:ProgramFiles\\\\nodejs\\\\npm.cmd\", \"$env:APPDATA\\\\npm\\\\npm.cmd\", \"$env:LOCALAPPDATA\\\\Programs\\\\nodejs\\\\npm.cmd\", \"$env:LOCALAPPDATA\\\\fnm_multishells\"\\); $paths | ForEach-Object { if \\(Test-Path $_\\) { \"Found: $_\" } else { \"Missing: $_\" } }; \"---\"; \\(Get-Command node -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source\\); \\(Get-Command npm -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source\\); \\(Get-Command pnpm -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source\\); \"---\"; $env:PATH -split ';' | Where-Object { $_ -match 'node|npm|fnm|nvm|volta' })",
+      "PowerShell(Get-Process node -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue; Start-Sleep -Milliseconds 800; \"Remaining node processes:\"; \\(Get-Process node -ErrorAction SilentlyContinue | Measure-Object\\).Count)",
+      "PowerShell(Start-Sleep -Milliseconds 1500; Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue; Start-Sleep -Milliseconds 500; \"Remaining: $\\(\\(Get-Process node -ErrorAction SilentlyContinue | Measure-Object\\).Count\\)\")"
+    ]
+  }
+}
