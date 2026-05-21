@@ -37,24 +37,25 @@ export function FAQ() {
 
   return (
     <section id="faq" className="relative bg-[var(--bg)] py-32">
-      <div className="mx-auto w-[min(1100px,94vw)]">
+      <div className="mx-auto w-[min(1100px,92vw)]">
         <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <SectionLabel index="VI" label="Questions, answered" />
+            <SectionLabel index="06" label="Index" />
             <SplitText
               as="h2"
               text="Quiet curiosities, openly addressed."
-              className="mt-6 font-display text-[clamp(2.4rem,5vw,5rem)] leading-[1.02] tracking-[-0.02em] text-gradient"
+              className="mt-6 max-w-[20ch] font-display text-[clamp(2.4rem,5.2vw,5rem)] font-light leading-[1.02] tracking-[-0.025em] text-cinema"
             />
           </div>
         </div>
 
-        <div className="mt-16 divide-y divide-white/10 border-y border-white/10">
+        <div className="mt-16 border-t border-[var(--line-strong)]">
           {faqs.map((item, i) => (
             <FAQItem
               key={i}
               q={item.q}
               a={item.a}
+              n={i + 1}
               isOpen={open === i}
               onToggle={() => setOpen(open === i ? null : i)}
             />
@@ -68,33 +69,47 @@ export function FAQ() {
 function FAQItem({
   q,
   a,
+  n,
   isOpen,
   onToggle,
 }: {
   q: string;
   a: string;
+  n: number;
   isOpen: boolean;
   onToggle: () => void;
 }) {
   return (
-    <div className="group relative overflow-hidden">
+    <div className="group relative overflow-hidden border-b border-[var(--line-strong)]">
       <motion.div
-        className="pointer-events-none absolute inset-0 origin-left bg-gradient-to-r from-gold-400/10 to-transparent"
+        aria-hidden
+        className="pointer-events-none absolute inset-0 origin-left"
+        style={{
+          background:
+            'linear-gradient(90deg, rgba(31,132,84,0.08), transparent 70%)',
+        }}
         initial={{ scaleX: 0 }}
         animate={{ scaleX: isOpen ? 1 : 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       />
       <button
         onClick={onToggle}
-        className="relative flex w-full items-center justify-between gap-6 py-6 text-left"
+        className="relative flex w-full items-center justify-between gap-6 py-7 text-left"
       >
-        <span className="font-display text-xl text-white md:text-2xl">{q}</span>
+        <div className="flex items-baseline gap-6">
+          <span className="font-mono text-[11px] tracking-widest text-champagne">
+            {String(n).padStart(2, '0')}
+          </span>
+          <span className="font-display text-[clamp(1.2rem,1.8vw,1.7rem)] leading-[1.25] text-[var(--fg)]">
+            {q}
+          </span>
+        </div>
         <motion.span
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--line-strong)]"
           animate={{ rotate: isOpen ? 45 : 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
             <path d="M12 5v14M5 12h14" />
           </svg>
         </motion.span>
@@ -108,7 +123,10 @@ function FAQItem({
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <p className="max-w-2xl pb-8 pr-12 text-white/65">{a}</p>
+            <div className="grid grid-cols-[64px_1fr] gap-6 pb-8 pr-12">
+              <span />
+              <p className="max-w-2xl text-[var(--fg-soft)] leading-[1.7]">{a}</p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

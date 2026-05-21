@@ -11,7 +11,7 @@ const steps = [
     title: 'Composition',
     sub: 'Consultation',
     body:
-      'A private walkthrough of your space — architectural notes, surface mapping, scent and acoustic preferences logged.',
+      'A private walkthrough — architectural notes, surface mapping, scent and acoustic preferences quietly logged.',
     time: '45 min',
   },
   {
@@ -27,7 +27,7 @@ const steps = [
     title: 'Performance',
     sub: 'Service',
     body:
-      'A trained crew arrives in soft-soled discretion. Each pass is acoustic-aware, surface-safe, and documented in a private log.',
+      'A devoted crew arrives in soft-soled discretion. Acoustic-aware, surface-safe, archive-logged.',
     time: 'Recurring',
   },
   {
@@ -47,68 +47,84 @@ export function Process() {
 
   return (
     <section id="process" ref={ref} className="relative bg-[var(--bg)] py-32">
-      <div className="mx-auto w-[min(1400px,94vw)]">
+      <div className="mx-auto w-[min(1300px,92vw)]">
         <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <SectionLabel index="III" label="Process" />
+            <SectionLabel index="03" label="Process" />
             <SplitText
               as="h2"
               text="Four movements, one performance."
-              className="mt-6 font-display text-[clamp(2.4rem,5vw,5rem)] leading-[1.02] tracking-[-0.02em] text-gradient"
+              className="mt-6 max-w-[18ch] font-display text-[clamp(2.4rem,5.2vw,5rem)] font-light leading-[1.02] tracking-[-0.025em] text-cinema"
             />
           </div>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-md text-white/55"
+            className="max-w-md text-[var(--fg-soft)] leading-[1.7]"
           >
-            Cleaning isn&apos;t a transaction — it&apos;s a sequence of intentional acts.
-            Every step is composed, scored, and quietly executed.
+            Cleaning isn&apos;t a transaction — it&apos;s a sequence of
+            intentional acts. Each one is composed, scored, and quietly
+            executed.
           </motion.p>
         </div>
 
         <div className="relative mt-24">
-          {/* Vertical guideline */}
-          <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/5" />
+          <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[var(--line)]" />
           <motion.div
-            className="absolute left-1/2 top-0 w-px -translate-x-1/2 bg-gradient-to-b from-gold-300 via-gold-400 to-aqua-400 origin-top"
-            style={{ scaleY: lineScale, height: '100%' }}
+            aria-hidden
+            className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 origin-top"
+            style={{
+              scaleY: lineScale,
+              background:
+                'linear-gradient(180deg, rgba(195,180,133,0.7), rgba(31,132,84,0.6) 60%, transparent)',
+            }}
           />
 
-          <ol className="relative space-y-24">
+          <ol className="relative space-y-20">
             {steps.map((s, i) => (
               <li key={s.no} className="relative grid items-center gap-8 md:grid-cols-2">
                 <motion.div
-                  initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40, filter: 'blur(8px)' }}
-                  whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                  className={`glass-strong rounded-3xl p-8 md:p-10 ${
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -28 : 28 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.45 }}
+                  transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+                  className={`rounded-[20px] border border-[var(--line)] bg-[var(--glass)] p-8 md:p-10 ${
                     i % 2 === 0 ? 'md:col-start-1 md:text-right' : 'md:col-start-2'
                   }`}
                 >
-                  <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-white/40">
-                    <span className="font-mono text-gold-300">{s.no}</span>
+                  <div className={`flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-[var(--muted)] ${
+                    i % 2 === 0 ? 'md:flex-row-reverse' : ''
+                  }`}>
+                    <span className="font-mono text-champagne">{s.no}</span>
                     <span>{s.sub}</span>
-                    <span className="ml-auto rounded-full border border-white/10 px-2 py-0.5">
+                    <span className={`rounded-full border border-[var(--line)] px-2.5 py-0.5 ${
+                      i % 2 === 0 ? 'md:mr-auto' : 'ml-auto'
+                    }`}>
                       {s.time}
                     </span>
                   </div>
-                  <h3 className="mt-6 font-display text-3xl md:text-4xl">{s.title}</h3>
-                  <p className="mt-4 text-white/60">{s.body}</p>
+                  <h3 className="mt-6 font-display text-[clamp(1.8rem,2.6vw,2.6rem)] leading-[1.05] tracking-[-0.02em] text-cinema">
+                    {s.title}
+                  </h3>
+                  <p className="mt-4 text-[var(--fg-soft)] leading-[1.65]">{s.body}</p>
                 </motion.div>
 
-                {/* Center dot */}
                 <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true, amount: 0.6 }}
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true, amount: 0.7 }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute left-1/2 top-1/2 z-10 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--bg)] ring-1 ring-white/20"
+                  className="absolute left-1/2 top-1/2 z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--bg)] ring-1 ring-[var(--line-strong)]"
                 >
-                  <div className="h-2 w-2 rounded-full bg-gold-300 shadow-[0_0_20px_4px_rgba(213,168,71,0.5)]" />
+                  <div
+                    className="h-1.5 w-1.5 rounded-full"
+                    style={{
+                      background: '#dccfae',
+                      boxShadow: '0 0 16px 3px rgba(195,180,133,0.5)',
+                    }}
+                  />
                 </motion.div>
               </li>
             ))}

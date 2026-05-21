@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SplitText } from '@/components/ui/SplitText';
 import { Magnetic } from '@/components/ui/Magnetic';
 import { useCursor } from '@/components/providers/CursorProvider';
@@ -15,76 +15,92 @@ const HeroScene = dynamic(() => import('@/components/three/HeroScene').then((m) 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const sceneY = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
-  const titleY = useTransform(scrollYProgress, [0, 1], ['0%', '-30%']);
-  const titleScale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
+  const sceneY = useTransform(scrollYProgress, [0, 1], ['0%', '32%']);
+  const titleY = useTransform(scrollYProgress, [0, 1], ['0%', '-22%']);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.4, 0.95]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.55, 0.95]);
   const { setVariant } = useCursor();
+
+  // Only mount the 3D canvas on capable, large viewports.
+  const [enableScene, setEnableScene] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 900px) and (pointer: fine)');
+    setEnableScene(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setEnableScene(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   return (
     <section
       id="top"
       ref={ref}
-      className="relative h-[120vh] overflow-hidden bg-[var(--bg)]"
+      className="relative h-[112vh] overflow-hidden bg-[var(--bg)]"
     >
-      <motion.div
-        className="absolute inset-0 z-0"
-        style={{ y: sceneY }}
-      >
-        <HeroScene />
-      </motion.div>
+      {/* Editorial backdrop — cinematic gradient + a single elegant glow */}
+      <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 100% 60% at 50% 0%, rgba(31,132,84,0.18), transparent 60%), radial-gradient(ellipse 80% 50% at 50% 100%, rgba(195,180,133,0.06), transparent 60%)',
+          }}
+        />
+      </div>
+
+      {enableScene && (
+        <motion.div className="absolute inset-0 z-[1]" style={{ y: sceneY }}>
+          <HeroScene />
+        </motion.div>
+      )}
 
       <motion.div
-        className="absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-[var(--bg)]/30 to-[var(--bg)]"
+        className="absolute inset-0 z-[2] bg-gradient-to-b from-transparent via-[var(--bg)]/20 to-[var(--bg)]"
         style={{ opacity: overlayOpacity }}
       />
-      <div className="absolute inset-0 z-[1] bg-grid opacity-20 mix-blend-overlay" />
-      <div className="absolute inset-0 z-[1] noise-overlay" />
+      <div className="absolute inset-0 z-[2] noise-overlay" />
 
       <motion.div
-        className="relative z-10 mx-auto flex h-screen w-[min(1400px,94vw)] flex-col items-center justify-center pt-24 text-center"
-        style={{ y: titleY, scale: titleScale, opacity: titleOpacity }}
+        className="relative z-10 mx-auto flex h-screen w-[min(1400px,92vw)] flex-col items-start justify-center pt-24"
+        style={{ y: titleY, opacity: titleOpacity }}
       >
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.7, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8 inline-flex items-center gap-3 rounded-full glass px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-white/70"
+          transition={{ delay: 1.6, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="eyebrow"
         >
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold-300 opacity-70" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold-300" />
-          </span>
-          Taking new clients · Munich · Hamburg · Zürich
+          <span className="text-champagne">Sauber &amp; Zauber</span>
+          <span className="text-[var(--muted)]">— Atelier · Munich · Est. 2014</span>
         </motion.div>
 
         <SplitText
           as="h1"
-          text="Cleaning, choreographed."
-          className="font-display text-[clamp(3.4rem,9vw,9rem)] font-light leading-[0.95] tracking-[-0.03em] text-gradient"
-          delay={1.6}
-          stagger={0.07}
+          text="Cleaning, as a quiet art."
+          className="mt-10 max-w-[14ch] font-display text-[clamp(3.2rem,9vw,9.5rem)] font-light leading-[0.95] tracking-[-0.035em] text-cinema"
+          delay={1.55}
+          stagger={0.08}
+          duration={1.2}
         />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.6, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-6 max-w-xl text-balance text-base md:text-lg text-white/65"
+          transition={{ delay: 2.55, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-10 max-w-[44ch] text-[0.98rem] leading-[1.7] text-[var(--fg-soft)]"
         >
-          A private cleaning atelier crafting whisper-quiet, white-glove
-          experiences for refined homes, ateliers, and discreet offices —
-          choreographed with German precision.
-        </motion.div>
+          A private atelier composing white-glove, choreographed cleaning
+          rituals for refined homes, studios, and discreet offices —
+          with German precision and a single, devoted crew.
+        </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.9, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-12 flex flex-col sm:flex-row items-center gap-3 sm:gap-5"
+          transition={{ delay: 2.8, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-4"
         >
-          <Magnetic strength={0.3} range={120}>
+          <Magnetic strength={0.25} range={110}>
             <a
               href="#contact"
               className="btn-primary"
@@ -92,20 +108,20 @@ export function Hero() {
               onMouseLeave={() => setVariant('default')}
             >
               Reserve a consultation
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
             </a>
           </Magnetic>
-          <Magnetic strength={0.25} range={100}>
+          <Magnetic strength={0.2} range={100}>
             <a
               href="#services"
               className="btn-ghost"
               onMouseEnter={() => setVariant('hover')}
               onMouseLeave={() => setVariant('default')}
             >
-              <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/20">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[var(--line-strong)]">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M8 5v14l11-7z" />
                 </svg>
               </span>
@@ -113,53 +129,38 @@ export function Hero() {
             </a>
           </Magnetic>
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 3.4, duration: 1.4 }}
-          className="absolute inset-x-0 bottom-12 mx-auto flex w-fit flex-col items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-white/40"
-        >
-          <span>Scroll to enter</span>
-          <motion.div
-            className="h-10 w-px bg-gradient-to-b from-white/40 to-transparent"
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ delay: 3.6, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transformOrigin: 'top' }}
-          />
-        </motion.div>
       </motion.div>
 
-      {/* Floating decorative marquee */}
+      {/* Editorial bottom rail */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 3.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute inset-x-0 bottom-0 z-[5] mx-auto w-[min(1400px,92vw)] border-t border-[var(--line)] py-6"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-x-12 gap-y-4 text-[10px] uppercase tracking-[0.32em] text-[var(--muted)]">
+          <span>Discretion guaranteed</span>
+          <span className="hidden md:inline">Eco-luxe formulas</span>
+          <span>Insured · Bonded</span>
+          <span className="hidden md:inline">24h concierge</span>
+          <span>Munich · Hamburg · Zürich</span>
+        </div>
+      </motion.div>
+
+      {/* Scroll cue */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 3.2, duration: 1 }}
-        className="absolute bottom-0 left-0 right-0 z-[5] overflow-hidden border-y border-white/5 bg-[var(--bg)]/60 py-3 backdrop-blur-xl"
+        transition={{ delay: 3.4, duration: 1.4 }}
+        className="absolute right-8 top-1/2 z-[5] hidden -translate-y-1/2 flex-col items-center gap-3 text-[9px] uppercase tracking-[0.5em] text-[var(--muted)] md:flex"
       >
+        <span className="rotate-90">Scroll</span>
         <motion.div
-          className="flex shrink-0 gap-12 whitespace-nowrap text-[11px] uppercase tracking-[0.35em] text-white/40"
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-        >
-          {Array.from({ length: 2 }).map((_, idx) => (
-            <div key={idx} className="flex gap-12">
-              <span>Discretion guaranteed</span>
-              <span className="text-gold-300/60">◆</span>
-              <span>Eco-luxe formulas</span>
-              <span className="text-gold-300/60">◆</span>
-              <span>Insured · Bonded · Trained</span>
-              <span className="text-gold-300/60">◆</span>
-              <span>Hand-selected ateliers</span>
-              <span className="text-gold-300/60">◆</span>
-              <span>Acoustic-conscious crews</span>
-              <span className="text-gold-300/60">◆</span>
-              <span>24h concierge response</span>
-              <span className="text-gold-300/60">◆</span>
-            </div>
-          ))}
-        </motion.div>
+          className="h-16 w-px origin-top bg-gradient-to-b from-[var(--champagne)] to-transparent"
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: [0, 1, 1, 0], opacity: [0, 1, 1, 0] }}
+          transition={{ delay: 3.6, duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+        />
       </motion.div>
     </section>
   );

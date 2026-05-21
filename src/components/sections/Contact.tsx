@@ -11,7 +11,7 @@ const interests = [
   'Residential Atelier',
   'Private Office',
   'Concierge Stay',
-  'Restoration & Deep',
+  'Restoration',
   'Bespoke programme',
 ];
 
@@ -27,33 +27,37 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative overflow-hidden bg-[var(--bg)] py-32">
-      <div className="absolute inset-0 -z-0">
-        <div className="absolute left-1/2 top-1/4 h-[60vmin] w-[60vmin] -translate-x-1/2 rounded-full bg-gold-400/15 blur-[120px]" />
-        <div className="absolute right-1/4 bottom-0 h-[40vmin] w-[40vmin] rounded-full bg-aqua-400/15 blur-[120px]" />
-      </div>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 60% 50% at 30% 30%, rgba(31,132,84,0.10), transparent 60%), radial-gradient(ellipse 50% 40% at 80% 80%, rgba(195,180,133,0.06), transparent 60%)',
+        }}
+      />
 
-      <div className="relative mx-auto w-[min(1200px,94vw)]">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
+      <div className="relative mx-auto w-[min(1200px,92vw)]">
+        <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
           <div>
-            <SectionLabel index="VII" label="Begin" />
+            <SectionLabel index="07" label="Begin" />
             <SplitText
               as="h2"
               text="A quiet conversation, first."
-              className="mt-6 font-display text-[clamp(2.4rem,5vw,5rem)] leading-[1.02] tracking-[-0.02em] text-gradient"
+              className="mt-6 max-w-[18ch] font-display text-[clamp(2.4rem,5.2vw,5rem)] font-light leading-[1.02] tracking-[-0.025em] text-cinema"
             />
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-6 max-w-md text-white/60"
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-6 max-w-md text-[var(--fg-soft)] leading-[1.7]"
             >
               Tell us about your space, your cadence, and what would make
               your home or studio feel cared for. We respond within 24 hours
               — by a person, not a queue.
             </motion.p>
 
-            <div className="mt-12 space-y-6">
+            <div className="mt-14 space-y-5">
               {[
                 ['Munich · Atelier', 'Maximilianstraße 14'],
                 ['Berlin · Studio', 'Linienstraße 71'],
@@ -62,21 +66,27 @@ export function Contact() {
               ].map(([k, v], i) => (
                 <motion.div
                   key={k}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.3 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex items-center justify-between border-b border-white/10 pb-4"
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{
+                    duration: 0.9,
+                    delay: 0.2 + i * 0.07,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="flex items-center justify-between border-b border-[var(--line)] pb-4"
                 >
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/40">{k}</span>
-                  <span className="font-display text-lg text-white">{v}</span>
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">
+                    {k}
+                  </span>
+                  <span className="font-display text-base text-[var(--fg)]">{v}</span>
                 </motion.div>
               ))}
             </div>
           </div>
 
           <motion.form
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -85,7 +95,7 @@ export function Contact() {
               setSubmitted(true);
               window.setTimeout(() => setSubmitted(false), 6000);
             }}
-            className="glass-strong relative overflow-hidden rounded-[32px] p-8 md:p-10"
+            className="relative overflow-hidden rounded-[24px] border border-[var(--line)] bg-[var(--glass)] p-8 md:p-10"
           >
             <div className="space-y-6">
               <Field label="Your name">
@@ -119,7 +129,7 @@ export function Contact() {
               </Field>
 
               <div>
-                <label className="text-[10px] uppercase tracking-[0.3em] text-white/40">
+                <label className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">
                   Interests
                 </label>
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -132,10 +142,10 @@ export function Contact() {
                         onClick={() => toggle(i)}
                         onMouseEnter={() => setVariant('hover')}
                         onMouseLeave={() => setVariant('default')}
-                        className={`rounded-full border px-4 py-2 text-xs transition-all duration-300 ${
+                        className={`rounded-full border px-4 py-2 text-xs transition-all duration-500 ${
                           active
-                            ? 'border-gold-400/50 bg-gold-400/15 text-gold-200'
-                            : 'border-white/15 text-white/60 hover:text-white'
+                            ? 'border-[rgba(31,132,84,0.5)] bg-[rgba(31,132,84,0.12)] text-emerald-200'
+                            : 'border-[var(--line)] text-[var(--fg-soft)] hover:text-[var(--fg)]'
                         }`}
                       >
                         {i}
@@ -155,7 +165,7 @@ export function Contact() {
                 />
               </Field>
 
-              <Magnetic strength={0.18} range={80}>
+              <Magnetic strength={0.16} range={80}>
                 <button
                   type="submit"
                   className="btn-primary w-full justify-center"
@@ -163,7 +173,7 @@ export function Contact() {
                   onMouseLeave={() => setVariant('default')}
                 >
                   Send to concierge
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                     <path d="M5 12h14M13 5l7 7-7 7" />
                   </svg>
                 </button>
@@ -173,10 +183,11 @@ export function Contact() {
             <AnimatePresence>
               {submitted && (
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="mt-6 rounded-2xl border border-gold-400/30 bg-gold-400/10 px-5 py-4 text-sm text-gold-100"
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="mt-6 rounded-2xl border border-[rgba(31,132,84,0.35)] bg-[rgba(31,132,84,0.08)] px-5 py-4 text-sm text-emerald-200"
                 >
                   Received. A concierge will write to you within 24 hours.
                 </motion.div>
@@ -191,19 +202,19 @@ export function Contact() {
           width: 100%;
           border: none;
           background: transparent;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+          border-bottom: 1px solid var(--line);
           padding: 0.85rem 0;
           color: var(--fg);
           outline: none;
           font-size: 1rem;
           letter-spacing: -0.005em;
-          transition: border-color 0.4s, color 0.4s;
+          transition: border-color 0.6s var(--ease), color 0.6s var(--ease);
         }
         :global(.contact-input)::placeholder {
-          color: rgba(255, 255, 255, 0.3);
+          color: var(--muted);
         }
         :global(.contact-input):focus {
-          border-color: rgba(213, 168, 71, 0.7);
+          border-color: rgba(195, 180, 133, 0.7);
         }
       `}</style>
     </section>
@@ -213,7 +224,7 @@ export function Contact() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="text-[10px] uppercase tracking-[0.3em] text-white/40">{label}</span>
+      <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">{label}</span>
       <div className="mt-1">{children}</div>
     </label>
   );
