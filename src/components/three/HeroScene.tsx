@@ -43,12 +43,7 @@ function FloatingBubbles({ count = 90 }: { count?: number }) {
   return (
     <points ref={points}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          array={positions}
-          count={count}
-          itemSize={3}
-        />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
         size={0.045}
