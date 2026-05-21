@@ -1,7 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useCursor } from '@/components/providers/CursorProvider';
 
 const columns = [
@@ -20,50 +19,44 @@ const columns = [
 ];
 
 export function Footer() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end end'] });
-  const titleY = useTransform(scrollYProgress, [0, 1], ['16%', '-16%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
   const { setVariant } = useCursor();
 
   return (
-    <footer ref={ref} className="relative isolate overflow-hidden bg-[var(--bg)]">
-      <div className="absolute inset-0 -z-0">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 80% 50% at 50% 100%, rgba(31,132,84,0.14), transparent 60%), radial-gradient(ellipse 60% 40% at 20% 0%, rgba(195,180,133,0.06), transparent 60%)',
-          }}
-        />
-        <div className="absolute inset-0 noise-overlay" />
-      </div>
+    <footer className="relative isolate overflow-hidden bg-[var(--bg)]">
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 50% at 50% 100%, rgba(20,84,58,0.16), transparent 60%),' +
+            'radial-gradient(ellipse 60% 40% at 20% 0%, rgba(220,196,136,0.05), transparent 60%)',
+        }}
+      />
 
       <div className="relative mx-auto w-[min(1400px,92vw)] pt-32">
-        <motion.div className="mb-12" style={{ opacity }}>
-          <div className="eyebrow">
-            <span>Sauber &amp; Zauber · Est. Munich</span>
-          </div>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-10%' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-12 eyebrow"
+        >
+          <span>Sauber &amp; Zauber · Est. Munich</span>
         </motion.div>
 
-        {/* Mega editorial wordmark */}
-        <div className="relative overflow-hidden py-4">
-          <motion.h2
-            style={{ y: titleY }}
-            className="font-display text-[clamp(4rem,17vw,19rem)] font-light leading-[0.85] tracking-[-0.045em] text-cinema"
-          >
-            Sauber<span className="text-champagne">.</span>
-            <br />
-            Zauber<span className="text-champagne">.</span>
-          </motion.h2>
-        </div>
+        {/* Mega wordmark — static now, no parallax loop. CSS gradient only. */}
+        <h2 className="overflow-hidden font-display text-[clamp(3.8rem,17vw,18rem)] font-light leading-[0.85] tracking-[-0.045em] text-cinema">
+          Sauber<span className="text-gold-soft">.</span>
+          <br />
+          Zauber<span className="text-gold-soft">.</span>
+        </h2>
 
         <div className="mt-20 grid gap-12 md:grid-cols-[2fr_3fr]">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, margin: '-10%' }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="max-w-md text-[var(--fg-soft)] leading-[1.7]">
               A private cleaning atelier for those who treat home,
@@ -96,18 +89,12 @@ export function Footer() {
             {columns.map((col, i) => (
               <motion.div
                 key={col.title}
-                initial={{ opacity: 0, y: 22 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{
-                  duration: 0.9,
-                  delay: 0.1 + i * 0.07,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
+                viewport={{ once: true, margin: '-10%' }}
+                transition={{ duration: 0.75, delay: 0.08 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h4 className="text-[10px] uppercase tracking-[0.32em] text-[var(--muted)]">
-                  {col.title}
-                </h4>
+                <h4 className="text-[10px] uppercase tracking-[0.32em] text-[var(--muted)]">{col.title}</h4>
                 <ul className="mt-5 space-y-3">
                   {col.items.map((item) => (
                     <li key={item}>
@@ -119,7 +106,7 @@ export function Footer() {
                       >
                         <span className="relative">
                           {item}
-                          <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-champagne transition-all duration-500 group-hover:w-full" />
+                          <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-gold-soft transition-all duration-500 group-hover:w-full" />
                         </span>
                       </a>
                     </li>
@@ -139,9 +126,7 @@ export function Footer() {
           </div>
           <div className="flex items-center gap-5">
             {['Instagram', 'Pinterest', 'LinkedIn'].map((s) => (
-              <a key={s} href="#" className="transition-colors hover:text-[var(--fg)]">
-                {s}
-              </a>
+              <a key={s} href="#" className="transition-colors hover:text-[var(--fg)]">{s}</a>
             ))}
           </div>
         </div>

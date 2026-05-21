@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useMemo } from 'react';
+import { useMemo } from 'react';
 import { motion, Variants } from 'framer-motion';
 
 type Props = {
@@ -18,7 +18,7 @@ export function SplitText({
   text,
   className,
   delay = 0,
-  duration = 1.1,
+  duration = 0.95,
   stagger = 0.06,
   as = 'h2',
   by = 'word',
@@ -31,21 +31,12 @@ export function SplitText({
 
   const container: Variants = {
     hidden: {},
-    visible: {
-      transition: {
-        delayChildren: delay,
-        staggerChildren: stagger,
-      },
-    },
+    visible: { transition: { delayChildren: delay, staggerChildren: stagger } },
   };
 
   const child: Variants = {
-    hidden: { y: '110%', opacity: 0 },
-    visible: {
-      y: '0%',
-      opacity: 1,
-      transition: { duration, ease: [0.16, 1, 0.3, 1] },
-    },
+    hidden: { y: '110%' },
+    visible: { y: '0%', transition: { duration, ease: [0.16, 1, 0.3, 1] } },
   };
 
   const Comp: any = motion[as as 'h2'];
@@ -56,7 +47,7 @@ export function SplitText({
       variants={container}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, amount: 0.4 }}
+      viewport={{ once, margin: '-10%' }}
     >
       {items.map((token, i) => {
         if (/^\s+$/.test(token)) return <span key={i}>{token}</span>;

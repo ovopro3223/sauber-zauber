@@ -21,9 +21,7 @@ export function Contact() {
   const { setVariant } = useCursor();
 
   const toggle = (i: string) =>
-    setSelected((prev) =>
-      prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]
-    );
+    setSelected((prev) => (prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]));
 
   return (
     <section id="contact" className="relative overflow-hidden bg-[var(--bg)] py-32">
@@ -32,7 +30,8 @@ export function Contact() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 60% 50% at 30% 30%, rgba(31,132,84,0.10), transparent 60%), radial-gradient(ellipse 50% 40% at 80% 80%, rgba(195,180,133,0.06), transparent 60%)',
+            'radial-gradient(ellipse 60% 50% at 30% 30%, rgba(20,84,58,0.12), transparent 60%),' +
+            'radial-gradient(ellipse 50% 40% at 80% 80%, rgba(220,196,136,0.05), transparent 60%)',
         }}
       />
 
@@ -43,13 +42,13 @@ export function Contact() {
             <SplitText
               as="h2"
               text="A quiet conversation, first."
-              className="mt-6 max-w-[18ch] font-display text-[clamp(2.4rem,5.2vw,5rem)] font-light leading-[1.02] tracking-[-0.025em] text-cinema"
+              className="mt-6 max-w-[18ch] font-display text-[clamp(2.2rem,5vw,4.8rem)] font-light leading-[1.02] tracking-[-0.025em] text-cinema"
             />
             <motion.p
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true, margin: '-10%' }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="mt-6 max-w-md text-[var(--fg-soft)] leading-[1.7]"
             >
               Tell us about your space, your cadence, and what would make
@@ -66,19 +65,13 @@ export function Contact() {
               ].map(([k, v], i) => (
                 <motion.div
                   key={k}
-                  initial={{ opacity: 0, y: 14 }}
+                  initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{
-                    duration: 0.9,
-                    delay: 0.2 + i * 0.07,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
+                  viewport={{ once: true, margin: '-10%' }}
+                  transition={{ duration: 0.7, delay: 0.15 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
                   className="flex items-center justify-between border-b border-[var(--line)] pb-4"
                 >
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">
-                    {k}
-                  </span>
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">{k}</span>
                   <span className="font-display text-base text-[var(--fg)]">{v}</span>
                 </motion.div>
               ))}
@@ -86,10 +79,10 @@ export function Contact() {
           </div>
 
           <motion.form
-            initial={{ opacity: 0, y: 32 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, margin: '-10%' }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             onSubmit={(e) => {
               e.preventDefault();
               setSubmitted(true);
@@ -100,38 +93,25 @@ export function Contact() {
             <div className="space-y-6">
               <Field label="Your name">
                 <input
-                  required
-                  type="text"
-                  placeholder="Frau Schmidt"
-                  className="contact-input"
-                  onFocus={() => setVariant('text')}
-                  onBlur={() => setVariant('default')}
+                  required type="text" placeholder="Frau Schmidt" className="contact-input"
+                  onFocus={() => setVariant('text')} onBlur={() => setVariant('default')}
                 />
               </Field>
               <Field label="Letter address">
                 <input
-                  required
-                  type="email"
-                  placeholder="you@residence.de"
-                  className="contact-input"
-                  onFocus={() => setVariant('text')}
-                  onBlur={() => setVariant('default')}
+                  required type="email" placeholder="you@residence.de" className="contact-input"
+                  onFocus={() => setVariant('text')} onBlur={() => setVariant('default')}
                 />
               </Field>
               <Field label="City">
                 <input
-                  type="text"
-                  placeholder="Munich · Hamburg · Zürich"
-                  className="contact-input"
-                  onFocus={() => setVariant('text')}
-                  onBlur={() => setVariant('default')}
+                  type="text" placeholder="Munich · Hamburg · Zürich" className="contact-input"
+                  onFocus={() => setVariant('text')} onBlur={() => setVariant('default')}
                 />
               </Field>
 
               <div>
-                <label className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">
-                  Interests
-                </label>
+                <label className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">Interests</label>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {interests.map((i) => {
                     const active = selected.includes(i);
@@ -142,9 +122,9 @@ export function Contact() {
                         onClick={() => toggle(i)}
                         onMouseEnter={() => setVariant('hover')}
                         onMouseLeave={() => setVariant('default')}
-                        className={`rounded-full border px-4 py-2 text-xs transition-all duration-500 ${
+                        className={`rounded-full border px-4 py-2 text-xs transition-colors duration-500 ${
                           active
-                            ? 'border-[rgba(31,132,84,0.5)] bg-[rgba(31,132,84,0.12)] text-emerald-200'
+                            ? 'border-[rgba(45,122,85,0.5)] bg-[rgba(45,122,85,0.12)] text-emerald-200'
                             : 'border-[var(--line)] text-[var(--fg-soft)] hover:text-[var(--fg)]'
                         }`}
                       >
@@ -157,15 +137,13 @@ export function Contact() {
 
               <Field label="Tell us about your space">
                 <textarea
-                  rows={4}
-                  placeholder="Square meters, surfaces, cadence, scent preferences…"
+                  rows={4} placeholder="Square meters, surfaces, cadence, scent preferences…"
                   className="contact-input resize-none"
-                  onFocus={() => setVariant('text')}
-                  onBlur={() => setVariant('default')}
+                  onFocus={() => setVariant('text')} onBlur={() => setVariant('default')}
                 />
               </Field>
 
-              <Magnetic strength={0.16} range={80}>
+              <Magnetic strength={0.12} range={70}>
                 <button
                   type="submit"
                   className="btn-primary w-full justify-center"
@@ -183,11 +161,11 @@ export function Contact() {
             <AnimatePresence>
               {submitted && (
                 <motion.div
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="mt-6 rounded-2xl border border-[rgba(31,132,84,0.35)] bg-[rgba(31,132,84,0.08)] px-5 py-4 text-sm text-emerald-200"
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="mt-6 rounded-2xl border border-[rgba(45,122,85,0.35)] bg-[rgba(20,84,58,0.10)] px-5 py-4 text-sm text-emerald-200"
                 >
                   Received. A concierge will write to you within 24 hours.
                 </motion.div>
@@ -208,14 +186,10 @@ export function Contact() {
           outline: none;
           font-size: 1rem;
           letter-spacing: -0.005em;
-          transition: border-color 0.6s var(--ease), color 0.6s var(--ease);
+          transition: border-color 0.55s var(--ease);
         }
-        :global(.contact-input)::placeholder {
-          color: var(--muted);
-        }
-        :global(.contact-input):focus {
-          border-color: rgba(195, 180, 133, 0.7);
-        }
+        :global(.contact-input)::placeholder { color: var(--muted); }
+        :global(.contact-input):focus { border-color: rgba(220, 196, 136, 0.7); }
       `}</style>
     </section>
   );

@@ -24,7 +24,7 @@ const tiers = [
       'Private session log',
     ],
     cta: 'Begin a Maison program',
-    badge: null,
+    badge: null as string | null,
     highlight: false,
   },
   {
@@ -42,7 +42,7 @@ const tiers = [
       'Curated scent program',
     ],
     cta: 'Compose an Atelier program',
-    badge: 'Most chosen',
+    badge: 'Most chosen' as string | null,
     highlight: true,
   },
   {
@@ -60,7 +60,7 @@ const tiers = [
       'Annual concierge retreat',
     ],
     cta: 'Speak with a director',
-    badge: 'By invitation',
+    badge: 'By invitation' as string | null,
     highlight: false,
   },
 ];
@@ -84,24 +84,24 @@ export function Pricing() {
             <SplitText
               as="h2"
               text="Quietly composed memberships."
-              className="mt-6 max-w-[20ch] font-display text-[clamp(2.4rem,5.2vw,5rem)] font-light leading-[1.02] tracking-[-0.025em] text-cinema"
+              className="mt-6 max-w-[20ch] font-display text-[clamp(2.2rem,5vw,4.8rem)] font-light leading-[1.02] tracking-[-0.025em] text-cinema"
             />
           </div>
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, margin: '-10%' }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-md text-[var(--fg-soft)] leading-[1.7]"
           >
-            Three programs. Tuned to your cadence, your space, your
-            privacy. Every plan is composed — never templated.
+            Three programs. Tuned to your cadence, your space, your privacy.
+            Every plan is composed — never templated.
           </motion.p>
         </div>
 
         <LayoutGroup>
           <div className="mt-12 flex justify-center">
-            <div className="relative inline-flex items-center gap-1 rounded-full border border-[var(--line)] bg-[var(--glass)] p-1.5 backdrop-blur">
+            <div className="relative inline-flex items-center gap-1 rounded-full border border-[var(--line)] p-1.5">
               {cadenceOptions.map((opt) => (
                 <button
                   key={opt.id}
@@ -139,8 +139,8 @@ export function Pricing() {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
+          viewport={{ once: true, margin: '-10%' }}
+          transition={{ duration: 0.8 }}
           className="mt-12 text-center text-[10px] uppercase tracking-[0.35em] text-[var(--muted)]"
         >
           All programs include insurance · vetted crews · GDPR-compliant logs
@@ -164,14 +164,13 @@ function PricingCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -6 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 1, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className={`relative overflow-hidden rounded-[24px] p-8 md:p-10 ${
+      viewport={{ once: true, margin: '-10%' }}
+      transition={{ duration: 0.8, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
+      className={`group relative overflow-hidden rounded-[24px] p-8 md:p-10 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 ${
         tier.highlight
-          ? 'border border-[rgba(31,132,84,0.35)] bg-[rgba(31,132,84,0.04)]'
+          ? 'border border-[rgba(45,122,85,0.35)] bg-[rgba(20,84,58,0.08)]'
           : 'border border-[var(--line)] bg-[var(--glass)]'
       }`}
     >
@@ -181,7 +180,7 @@ function PricingCard({
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(31,132,84,0.18), transparent 60%)',
+              'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(45,122,85,0.20), transparent 60%)',
           }}
         />
       )}
@@ -192,7 +191,7 @@ function PricingCard({
             <span
               className={`rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.3em] ${
                 tier.highlight
-                  ? 'bg-[rgba(31,132,84,0.18)] text-emerald-200'
+                  ? 'bg-[rgba(45,122,85,0.2)] text-emerald-200'
                   : 'border border-[var(--line)] text-[var(--muted)]'
               }`}
             >
@@ -200,54 +199,42 @@ function PricingCard({
             </span>
           )}
         </div>
-        <div className="mt-1 text-[11px] uppercase tracking-[0.25em] text-[var(--muted)]">
-          {tier.sub}
-        </div>
+        <div className="mt-1 text-[11px] uppercase tracking-[0.25em] text-[var(--muted)]">{tier.sub}</div>
 
         <div className="mt-10 flex items-end gap-2">
           <AnimatePresence mode="wait">
             <motion.span
               key={`${tier.name}-${cadence}`}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[3.6rem] leading-none tracking-[-0.03em] text-cinema"
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-[3.4rem] leading-none tracking-[-0.03em] text-cinema"
             >
-              {typeof price.num === 'number'
-                ? price.num.toLocaleString('de-DE')
-                : price.num}
+              {typeof price.num === 'number' ? price.num.toLocaleString('de-DE') : price.num}
             </motion.span>
           </AnimatePresence>
-          <span className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">
-            {price.unit}
-          </span>
+          <span className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">{price.unit}</span>
         </div>
 
         <ul className="mt-10 space-y-3">
           {tier.features.map((f) => (
-            <li
-              key={f}
-              className="flex items-start gap-3 text-[14px] leading-[1.55] text-[var(--fg-soft)]"
-            >
-              <span
-                className="mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full"
-                style={{ background: 'rgba(195,180,133,0.85)' }}
-              />
+            <li key={f} className="flex items-start gap-3 text-[14px] leading-[1.55] text-[var(--fg-soft)]">
+              <span className="mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full" style={{ background: 'rgba(220,196,136,0.85)' }} />
               {f}
             </li>
           ))}
         </ul>
 
-        <Magnetic strength={0.15} range={70}>
+        <Magnetic strength={0.12} range={70}>
           <a
             href="#contact"
             onMouseEnter={() => setVariant('hover')}
             onMouseLeave={() => setVariant('default')}
-            className={`mt-10 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.25em] transition-all duration-500 ${
+            className={`mt-10 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.25em] transition-colors duration-500 ${
               tier.highlight
                 ? 'bg-[var(--fg)] text-[var(--bg)] hover:bg-[var(--cream)]'
-                : 'border border-[var(--line-strong)] text-[var(--fg)] hover:border-[rgba(195,180,133,0.5)]'
+                : 'border border-[var(--line-strong)] text-[var(--fg)] hover:border-[rgba(220,196,136,0.5)]'
             }`}
           >
             {tier.cta}

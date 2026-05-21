@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 type Props = {
@@ -8,17 +8,26 @@ type Props = {
   strength?: number;
   range?: number;
   className?: string;
-  as?: 'div' | 'span';
 };
 
-export function Magnetic({ children, strength = 0.35, range = 120, className, as = 'div' }: Props) {
+/**
+ * Magnetic hover — desktop / fine pointer only. Listeners attach to the
+ * element itself (not window), so cost stays local to the button.
+ */
+export function Magnetic({ children, strength = 0.25, range = 100, className }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+  const [enabled, setEnabled] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const sx = useSpring(x, { damping: 18, stiffness: 220, mass: 0.4 });
-  const sy = useSpring(y, { damping: 18, stiffness: 220, mass: 0.4 });
+  const sx = useSpring(x, { damping: 20, stiffness: 240, mass: 0.35 });
+  const sy = useSpring(y, { damping: 20, stiffness: 240, mass: 0.35 });
 
   useEffect(() => {
+    setEnabled(window.matchMedia('(pointer: fine)').matches);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
     const el = ref.current;
     if (!el) return;
     const onMove = (e: PointerEvent) => {
@@ -40,19 +49,21 @@ export function Magnetic({ children, strength = 0.35, range = 120, className, as
       x.set(0);
       y.set(0);
     };
-    window.addEventListener('pointermove', onMove);
+    el.addEventListener('pointermove', onMove);
     el.addEventListener('pointerleave', onLeave);
     return () => {
-      window.removeEventListener('pointermove', onMove);
+      el.removeEventListener('pointermove', onMove);
       el.removeEventListener('pointerleave', onLeave);
     };
-  }, [range, strength, x, y]);
+  }, [enabled, range, strength, x, y]);
 
-  const Comp: any = as === 'span' ? motion.span : motion.div;
+  if (!enabled) {
+    return <span className={className}>{children}</span>;
+  }
 
   return (
-    <Comp ref={ref} className={`magnetic ${className ?? ''}`} style={{ x: sx, y: sy }}>
+    <motion.div ref={ref} className={`magnetic ${className ?? ''}`} style={{ x: sx, y: sy }}>
       {children}
-    </Comp>
+    </motion.div>
   );
 }

@@ -13,46 +13,44 @@ const sans = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
+  weight: ['300', '400', '500', '600'],
 });
 
 const display = Fraunces({
   subsets: ['latin'],
   variable: '--font-display',
   display: 'swap',
-  axes: ['opsz'],
+  weight: ['300', '400'],
 });
 
 const mono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   display: 'swap',
+  weight: ['400'],
 });
 
 export const metadata: Metadata = {
-  title: 'Sauber & Zauber — Luxury Cleaning, Reimagined',
+  title: 'Sauber & Zauber — Cleaning Atelier · Munich',
   description:
-    'Sauber & Zauber delivers white-glove, choreographed cleaning experiences for refined homes, ateliers, and private offices across Germany.',
+    'A private cleaning atelier composing white-glove, choreographed cleaning rituals for refined homes, studios, and discreet offices.',
   metadataBase: new URL('https://sauber-zauber.de'),
   openGraph: {
-    title: 'Sauber & Zauber — Luxury Cleaning, Reimagined',
+    title: 'Sauber & Zauber — Cleaning Atelier · Munich',
     description:
-      'White-glove, choreographed cleaning for refined homes, ateliers, and private offices.',
+      'White-glove, choreographed cleaning rituals for refined homes, studios, and discreet offices.',
     type: 'website',
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#07090e',
+  themeColor: '#060f0c',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
