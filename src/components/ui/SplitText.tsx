@@ -37,8 +37,12 @@ export function SplitText({
   };
 
   const child: Variants = {
-    hidden: { y: '110%' },
-    visible: { y: '0%', transition: { duration, ease: [0.16, 1, 0.3, 1] } },
+    hidden: { y: '110%', opacity: 0 },
+    visible: {
+      y: '0%',
+      opacity: 1,
+      transition: { duration, ease: [0.16, 1, 0.3, 1] },
+    },
   };
 
   const Comp: any = motion[as as 'h2'];

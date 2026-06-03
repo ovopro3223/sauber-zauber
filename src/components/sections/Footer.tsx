@@ -3,30 +3,73 @@
 import { motion } from 'framer-motion';
 import { Logo } from '@/components/ui/Logo';
 import { useCursor } from '@/components/providers/CursorProvider';
-
-const columns = [
-  {
-    title: 'Leistungen',
-    items: [
-      { label: 'Hausreinigung', href: '#services' },
-      { label: 'Büroreinigung', href: '#services' },
-      { label: 'Glas- & Fensterreinigung', href: '#services' },
-      { label: 'Reinigung nach Bauphasen', href: '#services' },
-      { label: 'Möbelreinigung', href: '#services' },
-    ],
-  },
-  {
-    title: 'Kontakt',
-    items: [
-      { label: '+49 176 23220656', href: 'tel:+4917623220656' },
-      { label: 'info@sauberundzauber.de', href: 'mailto:info@sauberundzauber.de' },
-      { label: 'Dossestr. 6, 10247 Berlin', href: '#' },
-    ],
-  },
-];
+import { useT } from '@/components/providers/LanguageProvider';
 
 export function Footer() {
   const { setVariant } = useCursor();
+
+  const t = useT({
+    de: {
+      tagline: 'Andere schrubben · Wir zaubern',
+      bodyTagline: 'Andere schrubben, wir zaubern',
+      body:
+        'Premium-Reinigungsdienste in Berlin — diskret, gründlich, magisch sauber. Auf Wunsch mit umweltfreundlichen Mitteln und festem Stammteam.',
+      subPlaceholder: 'Ihre E-Mail Adresse',
+      subCta: 'Abonnieren',
+      columns: [
+        {
+          title: 'Leistungen',
+          items: [
+            { label: 'Hausreinigung', href: '#services' },
+            { label: 'Büroreinigung', href: '#services' },
+            { label: 'Glas & Fenster', href: '#services' },
+            { label: 'Nach Bauphasen', href: '#services' },
+            { label: 'Möbelreinigung', href: '#services' },
+          ],
+        },
+        {
+          title: 'Kontakt',
+          items: [
+            { label: '+49 176 23220656', href: 'tel:+4917623220656' },
+            { label: 'info@sauberundzauber.de', href: 'mailto:info@sauberundzauber.de' },
+            { label: 'Dossestr. 6, 10247 Berlin', href: '#' },
+          ],
+        },
+      ],
+      impressum: 'Impressum',
+      datenschutz: 'Datenschutz',
+    },
+    en: {
+      tagline: 'Others scrub · We make magic',
+      bodyTagline: 'Others scrub, we make magic',
+      body:
+        'Premium cleaning services in Berlin — discreet, thorough, magically clean. On request with eco-friendly products and a dedicated team.',
+      subPlaceholder: 'Your email address',
+      subCta: 'Subscribe',
+      columns: [
+        {
+          title: 'Services',
+          items: [
+            { label: 'House cleaning', href: '#services' },
+            { label: 'Office cleaning', href: '#services' },
+            { label: 'Glass & windows', href: '#services' },
+            { label: 'Post-construction', href: '#services' },
+            { label: 'Furniture', href: '#services' },
+          ],
+        },
+        {
+          title: 'Contact',
+          items: [
+            { label: '+49 176 23220656', href: 'tel:+4917623220656' },
+            { label: 'info@sauberundzauber.de', href: 'mailto:info@sauberundzauber.de' },
+            { label: 'Dossestr. 6, 10247 Berlin', href: '#' },
+          ],
+        },
+      ],
+      impressum: 'Imprint',
+      datenschutz: 'Privacy',
+    },
+  });
 
   return (
     <footer className="relative isolate overflow-hidden">
@@ -38,7 +81,7 @@ export function Footer() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12 eyebrow"
         >
-          Andere schrubben · Wir zaubern
+          {t.tagline}
         </motion.div>
 
         <h2 className="overflow-hidden font-display text-[clamp(3.6rem,16vw,17rem)] font-light leading-[0.85] tracking-[-0.045em] text-cinema anim-wordmark-drift">
@@ -60,18 +103,14 @@ export function Footer() {
                 Sauber<span className="px-0.5 italic text-mint">&amp;</span>Zauber
               </span>
             </a>
-            <p className="mt-6 max-w-md text-[var(--fg-soft)] leading-[1.7]">
-              Premium-Reinigungsdienste in Berlin — diskret, gründlich,
-              magisch sauber. Auf Wunsch mit umweltfreundlichen Mitteln und
-              festem Stammteam.
-            </p>
+            <p className="mt-6 max-w-md text-[var(--fg-soft)] leading-[1.7]">{t.body}</p>
             <form
               onSubmit={(e) => e.preventDefault()}
               className="mt-10 flex max-w-md items-center gap-2 rounded-full border border-[var(--line-strong)] px-2 py-2"
             >
               <input
                 type="email"
-                placeholder="Ihre E-Mail Adresse"
+                placeholder={t.subPlaceholder}
                 className="flex-1 bg-transparent px-4 py-2 text-sm text-[var(--fg)] outline-none placeholder:text-[var(--muted)]"
                 onFocus={() => setVariant('text')}
                 onBlur={() => setVariant('default')}
@@ -82,13 +121,13 @@ export function Footer() {
                 onMouseEnter={() => setVariant('hover')}
                 onMouseLeave={() => setVariant('default')}
               >
-                Abonnieren
+                {t.subCta}
               </button>
             </form>
           </motion.div>
 
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-            {columns.map((col, i) => (
+            {t.columns.map((col, i) => (
               <motion.div
                 key={col.title}
                 initial={{ opacity: 0, y: 16 }}
@@ -123,8 +162,8 @@ export function Footer() {
           <div className="flex flex-wrap items-center gap-4">
             <span>© {new Date().getFullYear()} Sauber &amp; Zauber</span>
             <span className="hidden md:inline">·</span>
-            <a href="https://sauberundzauber.de/impressum/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--fg)]">Impressum</a>
-            <a href="https://sauberundzauber.de/datenschutz/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--fg)]">Datenschutz</a>
+            <a href="https://sauberundzauber.de/impressum/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--fg)]">{t.impressum}</a>
+            <a href="https://sauberundzauber.de/datenschutz/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--fg)]">{t.datenschutz}</a>
           </div>
           <div className="flex items-center gap-5">
             {['Instagram', 'Pinterest', 'LinkedIn'].map((s) => (

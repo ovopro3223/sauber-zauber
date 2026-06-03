@@ -6,21 +6,36 @@ import { Magnetic } from '@/components/ui/Magnetic';
 import { Logo } from '@/components/ui/Logo';
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { useCursor } from '@/components/providers/CursorProvider';
-
-const links = [
-  { href: '#services', label: 'Leistungen' },
-  { href: '#reveal', label: 'Reveal' },
-  { href: '#process', label: 'Prozess' },
-  { href: '#testimonials', label: 'Stimmen' },
-  { href: '#pricing', label: 'Pakete' },
-  { href: '#faq', label: 'FAQ' },
-];
+import { useLang, useT } from '@/components/providers/LanguageProvider';
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { theme, toggle } = useTheme();
   const { setVariant } = useCursor();
+  const { lang, toggle: toggleLang } = useLang();
+
+  const links = useT({
+    de: [
+      { href: '#services', label: 'Leistungen' },
+      { href: '#reveal', label: 'Vorher · Nachher' },
+      { href: '#process', label: 'Prozess' },
+      { href: '#testimonials', label: 'Stimmen' },
+      { href: '#faq', label: 'FAQ' },
+    ],
+    en: [
+      { href: '#services', label: 'Services' },
+      { href: '#reveal', label: 'Before · After' },
+      { href: '#process', label: 'Process' },
+      { href: '#testimonials', label: 'Voices' },
+      { href: '#faq', label: 'FAQ' },
+    ],
+  });
+
+  const t = useT({
+    de: { tag: 'Berlin · Reinigung', book: 'Anfragen' },
+    en: { tag: 'Berlin · Cleaning', book: 'Inquire' },
+  });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -52,7 +67,7 @@ export function Navbar() {
                 Sauber<span className="px-0.5 italic text-mint">&amp;</span>Zauber
               </div>
               <div className="mt-1.5 text-[9px] uppercase tracking-[0.35em] text-[var(--muted)]">
-                Berlin · Reinigung
+                {t.tag}
               </div>
             </div>
           </a>
@@ -82,6 +97,39 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
+            {/* Language toggle */}
+            <button
+              onClick={toggleLang}
+              aria-label="Sprache wechseln / Toggle language"
+              className="relative flex h-10 items-center rounded-full border border-[var(--line)] px-1 text-[10px] uppercase tracking-[0.25em]"
+              onMouseEnter={() => setVariant('hover')}
+              onMouseLeave={() => setVariant('default')}
+            >
+              <span
+                className={`relative z-10 px-3 py-1.5 transition-colors duration-500 ${
+                  lang === 'de' ? 'text-[#042014]' : 'text-[var(--fg-soft)]'
+                }`}
+              >
+                DE
+              </span>
+              <span
+                className={`relative z-10 px-3 py-1.5 transition-colors duration-500 ${
+                  lang === 'en' ? 'text-[#042014]' : 'text-[var(--fg-soft)]'
+                }`}
+              >
+                EN
+              </span>
+              <motion.span
+                layout
+                transition={{ type: 'spring', damping: 24, stiffness: 280 }}
+                className="absolute top-1 bottom-1 w-[44px] rounded-full"
+                style={{
+                  background: 'linear-gradient(180deg, #6fefac 0%, #2fbf7a 100%)',
+                  left: lang === 'de' ? 4 : 48,
+                }}
+              />
+            </button>
+
             <button
               onClick={toggle}
               aria-label="Toggle theme"
@@ -119,7 +167,7 @@ export function Navbar() {
 
             <a
               href="tel:+4917623220656"
-              className="hidden md:inline-flex items-center gap-2 rounded-full border border-[var(--line-strong)] bg-[var(--green-soft)] px-4 py-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-mint transition-colors hover:bg-[rgba(95,227,161,0.1)]"
+              className="hidden xl:inline-flex items-center gap-2 rounded-full border border-[var(--line-strong)] bg-[var(--green-soft)] px-4 py-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-mint transition-colors hover:bg-[rgba(95,227,161,0.1)]"
               onMouseEnter={() => setVariant('hover')}
               onMouseLeave={() => setVariant('default')}
             >
@@ -133,7 +181,7 @@ export function Navbar() {
                 onMouseEnter={() => setVariant('hover')}
                 onMouseLeave={() => setVariant('default')}
               >
-                Anfragen
+                {t.book}
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M13 5l7 7-7 7" />
                 </svg>

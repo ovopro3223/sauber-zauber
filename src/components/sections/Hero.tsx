@@ -6,17 +6,37 @@ import { SplitText } from '@/components/ui/SplitText';
 import { Magnetic } from '@/components/ui/Magnetic';
 import { Logo } from '@/components/ui/Logo';
 import { useCursor } from '@/components/providers/CursorProvider';
+import { useT } from '@/components/providers/LanguageProvider';
 
-/**
- * Hero composition on the brand atmospheric stack (bg-stage + aurora + grain).
- * One useScroll for parallax. All other motion is CSS keyframes.
- */
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const titleY = useTransform(scrollYProgress, [0, 1], ['0%', '-16%']);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const { setVariant } = useCursor();
+
+  const t = useT({
+    de: {
+      eyebrow: 'Premium-Reinigung · Berlin',
+      lineA: 'Andere schrubben.',
+      lineB: 'Wir zaubern.',
+      body:
+        'Diskrete, gründliche und zuverlässige Reinigungsdienste für Berliner Zuhause und Büros — auf Wunsch mit umweltfreundlichen Mitteln und festem Stammteam.',
+      cta1: 'Jetzt anfragen',
+      cta2: 'Leistungen ansehen',
+      scroll: 'Scrollen',
+    },
+    en: {
+      eyebrow: 'Premium cleaning · Berlin',
+      lineA: 'Others scrub.',
+      lineB: 'We make magic.',
+      body:
+        'Discreet, thorough and reliable cleaning for Berlin homes and offices — on request with eco-friendly products and a dedicated team.',
+      cta1: 'Inquire now',
+      cta2: 'View services',
+      scroll: 'Scroll',
+    },
+  });
 
   return (
     <section
@@ -28,11 +48,10 @@ export function Hero() {
         className="relative z-10 mx-auto flex min-h-[100svh] w-[min(1200px,92vw)] flex-col items-center justify-center pt-28 pb-24 text-center"
         style={{ y: titleY, opacity: titleOpacity }}
       >
-        {/* Floating logo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 1.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="anim-float"
         >
           <Logo size={120} />
@@ -43,23 +62,26 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.4, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mt-8 inline-flex items-center gap-3 rounded-full border border-[var(--line-strong)] bg-[var(--green-soft)] px-5 py-2 text-[10.5px] font-medium uppercase tracking-[0.4em] text-mint shadow-[0_0_30px_rgba(95,227,161,0.08),inset_0_0_18px_rgba(95,227,161,0.05)]"
+          key={`eyebrow-${t.eyebrow}`}
         >
           <span className="h-px w-4 bg-gradient-to-r from-transparent to-mint" />
-          Premium-Reinigung · Berlin
+          {t.eyebrow}
           <span className="h-px w-4 bg-gradient-to-l from-transparent to-mint" />
         </motion.div>
 
         <SplitText
+          key={`a-${t.lineA}`}
           as="h1"
-          text="Andere schrubben."
+          text={t.lineA}
           className="mt-8 font-display text-[clamp(2.8rem,8vw,8rem)] font-light leading-[1.0] tracking-[-0.025em] text-cinema"
           delay={1.5}
           stagger={0.08}
           duration={1}
         />
         <SplitText
+          key={`b-${t.lineB}`}
           as="h1"
-          text="Wir zaubern."
+          text={t.lineB}
           className="font-display text-[clamp(2.8rem,8vw,8rem)] font-extralight italic leading-[1.0] tracking-[-0.025em]"
           style={
             {
@@ -81,10 +103,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mt-8 max-w-[44ch] text-[0.98rem] leading-[1.75] text-[var(--fg-soft)]"
+          key={`body-${t.body.slice(0, 8)}`}
         >
-          Diskrete, gründliche und zuverlässige Reinigungsdienste für
-          Berliner Zuhause und Büros — auf Wunsch mit umweltfreundlichen
-          Mitteln und festem Stammteam.
+          {t.body}
         </motion.p>
 
         <motion.div
@@ -100,7 +121,7 @@ export function Hero() {
               onMouseEnter={() => setVariant('hover')}
               onMouseLeave={() => setVariant('default')}
             >
-              Jetzt anfragen
+              {t.cta1}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
@@ -113,7 +134,7 @@ export function Hero() {
               onMouseEnter={() => setVariant('hover')}
               onMouseLeave={() => setVariant('default')}
             >
-              Leistungen ansehen
+              {t.cta2}
             </a>
           </Magnetic>
         </motion.div>
@@ -124,7 +145,7 @@ export function Hero() {
           transition={{ delay: 2.9, duration: 1 }}
           className="mt-16 flex flex-col items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-[var(--muted)]"
         >
-          <span>Scrollen</span>
+          <span>{t.scroll}</span>
           <span className="scroll-cue" />
         </motion.div>
       </motion.div>

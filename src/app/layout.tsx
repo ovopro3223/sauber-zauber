@@ -4,6 +4,7 @@ import './globals.css';
 import { SmoothScroll } from '@/components/providers/SmoothScroll';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { CursorProvider } from '@/components/providers/CursorProvider';
+import { LanguageProvider } from '@/components/providers/LanguageProvider';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { Cursor } from '@/components/ui/Cursor';
 import { Navbar } from '@/components/sections/Navbar';
@@ -38,8 +39,7 @@ export const metadata: Metadata = {
   icons: { icon: '/logo.png', apple: '/logo.png' },
   openGraph: {
     title: 'Sauber & Zauber — Andere schrubben, wir zaubern.',
-    description:
-      'Premium-Reinigungsdienste in Berlin — diskret, gründlich, magisch sauber.',
+    description: 'Premium-Reinigungsdienste in Berlin — diskret, gründlich, magisch sauber.',
     type: 'website',
     locale: 'de_DE',
   },
@@ -60,17 +60,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body className="relative overflow-x-hidden antialiased hide-cursor">
-        <ThemeProvider>
-          <CursorProvider>
-            <LoadingScreen />
-            <Cursor />
-            <AmbientLights />
-            <SmoothScroll>
-              <Navbar />
-              <main className="relative z-10">{children}</main>
-            </SmoothScroll>
-          </CursorProvider>
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>
+            <CursorProvider>
+              <LoadingScreen />
+              <Cursor />
+              <AmbientLights />
+              <SmoothScroll>
+                <Navbar />
+                <main className="relative z-10">{children}</main>
+              </SmoothScroll>
+            </CursorProvider>
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

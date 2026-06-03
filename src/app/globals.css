@@ -267,6 +267,21 @@ html.lenis, html.lenis body { height: auto; }
   50%      { box-shadow: 0 0 42px rgba(95, 227, 161, 0.60); }
 }
 
+@keyframes sheen {
+  0%   { transform: translateX(-120%) skewX(-12deg); }
+  100% { transform: translateX(220%)  skewX(-12deg); }
+}
+
+@keyframes underline-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes mini-rise {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 .draw-ornament {
   stroke-dasharray: 800;
   stroke-dashoffset: 800;

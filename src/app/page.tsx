@@ -4,7 +4,6 @@ import { Services } from '@/components/sections/Services';
 import { BeforeAfter } from '@/components/sections/BeforeAfter';
 import { Process } from '@/components/sections/Process';
 import { Testimonials } from '@/components/sections/Testimonials';
-import { Pricing } from '@/components/sections/Pricing';
 import { FAQ } from '@/components/sections/FAQ';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/sections/Footer';
@@ -18,7 +17,6 @@ export default function HomePage() {
       <BeforeAfter />
       <Process />
       <Testimonials />
-      <Pricing />
       <FAQ />
       <Contact />
       <Footer />

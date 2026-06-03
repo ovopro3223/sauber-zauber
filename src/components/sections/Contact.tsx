@@ -6,42 +6,87 @@ import { SplitText } from '@/components/ui/SplitText';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { Magnetic } from '@/components/ui/Magnetic';
 import { useCursor } from '@/components/providers/CursorProvider';
-
-const interests = [
-  'Residential Atelier',
-  'Private Office',
-  'Concierge Stay',
-  'Restoration',
-  'Bespoke programme',
-];
+import { useT } from '@/components/providers/LanguageProvider';
 
 export function Contact() {
-  const [selected, setSelected] = useState<string[]>([interests[0]]);
   const [submitted, setSubmitted] = useState(false);
   const { setVariant } = useCursor();
 
+  const t = useT({
+    de: {
+      label: 'Anfrage',
+      title: 'Ein leises Gespräch zuerst.',
+      lede:
+        'Erzählen Sie uns von Ihrem Raum, Ihrem Rhythmus und was Ihre Wohnung oder Ihr Studio sich gewünscht fühlen lässt. Wir antworten innerhalb von 24 Stunden — von einem Menschen, nicht aus einer Warteschlange.',
+      contacts: [
+        ['Telefon', '+49 176 23220656'],
+        ['E-Mail', 'info@sauberundzauber.de'],
+        ['Adresse', 'Dossestr. 6, 10247 Berlin'],
+        ['Antwort', 'Innerhalb von 24 Stunden'],
+      ],
+      interests: ['Hausreinigung', 'Büroreinigung', 'Glas & Fenster', 'Nach Bauphasen', 'Möbel', 'Sonderwunsch'],
+      interestsLabel: 'Interesse',
+      name: 'Ihr Name',
+      namePlaceholder: 'Frau Schmidt',
+      email: 'E-Mail Adresse',
+      emailPlaceholder: 'sie@beispiel.de',
+      city: 'Stadt',
+      cityPlaceholder: 'Berlin · Hamburg · München',
+      message: 'Erzählen Sie uns von Ihrem Raum',
+      messagePlaceholder: 'Quadratmeter, Oberflächen, Rhythmus, Duftpräferenzen …',
+      cta: 'An Concierge senden',
+      success: 'Erhalten. Ein Concierge meldet sich innerhalb von 24 Stunden.',
+    },
+    en: {
+      label: 'Begin',
+      title: 'A quiet conversation, first.',
+      lede:
+        'Tell us about your space, your cadence, and what would make your home or studio feel cared for. We respond within 24 hours — by a person, not a queue.',
+      contacts: [
+        ['Phone', '+49 176 23220656'],
+        ['Email', 'info@sauberundzauber.de'],
+        ['Address', 'Dossestr. 6, 10247 Berlin'],
+        ['Response', 'Within 24 hours'],
+      ],
+      interests: ['House cleaning', 'Office cleaning', 'Glass & windows', 'Post-construction', 'Furniture', 'Bespoke'],
+      interestsLabel: 'Interests',
+      name: 'Your name',
+      namePlaceholder: 'Frau Schmidt',
+      email: 'Letter address',
+      emailPlaceholder: 'you@residence.de',
+      city: 'City',
+      cityPlaceholder: 'Berlin · Hamburg · Munich',
+      message: 'Tell us about your space',
+      messagePlaceholder: 'Square meters, surfaces, cadence, scent preferences …',
+      cta: 'Send to concierge',
+      success: 'Received. A concierge will write to you within 24 hours.',
+    },
+  });
+
+  const [selected, setSelected] = useState<string[]>([t.interests[0]]);
   const toggle = (i: string) =>
     setSelected((prev) => (prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]));
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-[var(--bg)] py-32">
+    <section id="contact" className="relative overflow-hidden bg-transparent py-32">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 60% 50% at 30% 30%, rgba(20,84,58,0.12), transparent 60%),' +
-            'radial-gradient(ellipse 50% 40% at 80% 80%, rgba(220,196,136,0.05), transparent 60%)',
+            'radial-gradient(ellipse 60% 50% at 30% 30%, rgba(95,227,161,0.12), transparent 60%),' +
+            'radial-gradient(ellipse 50% 40% at 80% 80%, rgba(45,191,122,0.08), transparent 60%)',
         }}
       />
 
       <div className="relative mx-auto w-[min(1200px,92vw)]">
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
           <div>
-            <SectionLabel index="07" label="Begin" />
+            <SectionLabel index="06" label={t.label} />
             <SplitText
+              key={t.title}
               as="h2"
-              text="A quiet conversation, first."
+              text={t.title}
               className="mt-6 max-w-[18ch] font-display text-[clamp(2.2rem,5vw,4.8rem)] font-light leading-[1.02] tracking-[-0.025em] text-cinema"
             />
             <motion.p
@@ -51,18 +96,11 @@ export function Contact() {
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="mt-6 max-w-md text-[var(--fg-soft)] leading-[1.7]"
             >
-              Tell us about your space, your cadence, and what would make
-              your home or studio feel cared for. We respond within 24 hours
-              — by a person, not a queue.
+              {t.lede}
             </motion.p>
 
             <div className="mt-14 space-y-5">
-              {[
-                ['Telefon', '+49 176 23220656'],
-                ['E-Mail', 'info@sauberundzauber.de'],
-                ['Adresse', 'Dossestr. 6, 10247 Berlin'],
-                ['Antwort', 'Innerhalb von 24 Stunden'],
-              ].map(([k, v], i) => (
+              {t.contacts.map(([k, v], i) => (
                 <motion.div
                   key={k}
                   initial={{ opacity: 0, y: 10 }}
@@ -88,32 +126,32 @@ export function Contact() {
               setSubmitted(true);
               window.setTimeout(() => setSubmitted(false), 6000);
             }}
-            className="relative overflow-hidden rounded-[24px] border border-[var(--line)] bg-[var(--glass)] p-8 md:p-10"
+            className="relative overflow-hidden rounded-[24px] border border-[var(--line)] bg-[rgba(8,30,22,0.45)] p-8 md:p-10"
           >
             <div className="space-y-6">
-              <Field label="Your name">
+              <Field label={t.name}>
                 <input
-                  required type="text" placeholder="Frau Schmidt" className="contact-input"
+                  required type="text" placeholder={t.namePlaceholder} className="contact-input"
                   onFocus={() => setVariant('text')} onBlur={() => setVariant('default')}
                 />
               </Field>
-              <Field label="Letter address">
+              <Field label={t.email}>
                 <input
-                  required type="email" placeholder="you@residence.de" className="contact-input"
+                  required type="email" placeholder={t.emailPlaceholder} className="contact-input"
                   onFocus={() => setVariant('text')} onBlur={() => setVariant('default')}
                 />
               </Field>
-              <Field label="City">
+              <Field label={t.city}>
                 <input
-                  type="text" placeholder="Munich · Hamburg · Zürich" className="contact-input"
+                  type="text" placeholder={t.cityPlaceholder} className="contact-input"
                   onFocus={() => setVariant('text')} onBlur={() => setVariant('default')}
                 />
               </Field>
 
               <div>
-                <label className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">Interests</label>
+                <label className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">{t.interestsLabel}</label>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {interests.map((i) => {
+                  {t.interests.map((i) => {
                     const active = selected.includes(i);
                     return (
                       <button
@@ -124,7 +162,7 @@ export function Contact() {
                         onMouseLeave={() => setVariant('default')}
                         className={`rounded-full border px-4 py-2 text-xs transition-colors duration-500 ${
                           active
-                            ? 'border-[rgba(45,122,85,0.5)] bg-[rgba(45,122,85,0.12)] text-emerald-200'
+                            ? 'border-mint bg-[rgba(95,227,161,0.12)] text-mint'
                             : 'border-[var(--line)] text-[var(--fg-soft)] hover:text-[var(--fg)]'
                         }`}
                       >
@@ -135,9 +173,9 @@ export function Contact() {
                 </div>
               </div>
 
-              <Field label="Tell us about your space">
+              <Field label={t.message}>
                 <textarea
-                  rows={4} placeholder="Square meters, surfaces, cadence, scent preferences…"
+                  rows={4} placeholder={t.messagePlaceholder}
                   className="contact-input resize-none"
                   onFocus={() => setVariant('text')} onBlur={() => setVariant('default')}
                 />
@@ -150,7 +188,7 @@ export function Contact() {
                   onMouseEnter={() => setVariant('hover')}
                   onMouseLeave={() => setVariant('default')}
                 >
-                  Send to concierge
+                  {t.cta}
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                     <path d="M5 12h14M13 5l7 7-7 7" />
                   </svg>
@@ -165,9 +203,9 @@ export function Contact() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="mt-6 rounded-2xl border border-[rgba(45,122,85,0.35)] bg-[rgba(20,84,58,0.10)] px-5 py-4 text-sm text-emerald-200"
+                  className="mt-6 rounded-2xl border border-mint bg-[rgba(95,227,161,0.10)] px-5 py-4 text-sm text-mint"
                 >
-                  Received. A concierge will write to you within 24 hours.
+                  {t.success}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -189,7 +227,7 @@ export function Contact() {
           transition: border-color 0.55s var(--ease);
         }
         :global(.contact-input)::placeholder { color: var(--muted); }
-        :global(.contact-input):focus { border-color: rgba(220, 196, 136, 0.7); }
+        :global(.contact-input):focus { border-color: var(--green-bright); }
       `}</style>
     </section>
   );

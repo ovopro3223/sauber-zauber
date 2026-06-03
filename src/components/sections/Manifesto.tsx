@@ -1,22 +1,36 @@
 'use client';
 
 import { motion } from 'framer-motion';
-
-const lines = [
-  ['Clean', 'is the beginning.'],
-  ['Quiet', 'is the craft.'],
-  ['Cared-for', 'is the intention.'],
-];
+import { useT } from '@/components/providers/LanguageProvider';
 
 export function Manifesto() {
+  const t = useT({
+    de: {
+      eyebrow: 'Ein Manifest in drei Sätzen',
+      lines: [
+        ['Sauber', 'ist der Anfang.'],
+        ['Still', 'ist das Handwerk.'],
+        ['Geborgen', 'ist das Ziel.'],
+      ],
+    },
+    en: {
+      eyebrow: 'A manifesto, in three measures',
+      lines: [
+        ['Clean', 'is the beginning.'],
+        ['Quiet', 'is the craft.'],
+        ['Cared-for', 'is the intention.'],
+      ],
+    },
+  });
+
   return (
-    <section className="relative bg-[var(--bg)] py-32 md:py-40">
+    <section className="relative bg-transparent py-32 md:py-40">
       <div className="mx-auto w-[min(1100px,92vw)]">
         <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--muted)]">
-          A manifesto, in three measures
+          {t.eyebrow}
         </div>
         <div className="mt-12 md:mt-16 space-y-1">
-          {lines.map(([a, b], i) => (
+          {t.lines.map(([a, b], i) => (
             <div key={i} className="overflow-hidden py-3">
               <motion.div
                 initial={{ y: '110%' }}
