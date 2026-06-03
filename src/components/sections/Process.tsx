@@ -123,7 +123,7 @@ export function Process() {
                   className="absolute left-1/2 top-1/2 z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--bg)] ring-1 ring-[var(--line-strong)]"
                 >
                   <div
-                    className="h-1.5 w-1.5 rounded-full"
+                    className="h-1.5 w-1.5 rounded-full anim-pulse"
                     style={{ background: '#dcc488' }}
                   />
                 </motion.div>

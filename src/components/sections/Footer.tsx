@@ -44,8 +44,8 @@ export function Footer() {
           <span>Sauber &amp; Zauber · Est. Munich</span>
         </motion.div>
 
-        {/* Mega wordmark — static now, no parallax loop. CSS gradient only. */}
-        <h2 className="overflow-hidden font-display text-[clamp(3.8rem,17vw,18rem)] font-light leading-[0.85] tracking-[-0.045em] text-cinema">
+        {/* Mega wordmark — gentle CSS drift, no scroll-bound parallax */}
+        <h2 className="overflow-hidden font-display text-[clamp(3.8rem,17vw,18rem)] font-light leading-[0.85] tracking-[-0.045em] text-cinema anim-wordmark-drift">
           Sauber<span className="text-gold-soft">.</span>
           <br />
           Zauber<span className="text-gold-soft">.</span>
