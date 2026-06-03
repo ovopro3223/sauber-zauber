@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SplitText } from '@/components/ui/SplitText';
 import { SectionLabel } from '@/components/ui/SectionLabel';
+import { AccentLine } from '@/components/ui/AccentLine';
 import { useT } from '@/components/providers/LanguageProvider';
 
 export function FAQ() {
@@ -47,6 +48,7 @@ export function FAQ() {
             text={t.title}
             className="mt-6 max-w-[20ch] font-display text-[clamp(2.2rem,5vw,4.8rem)] font-light leading-[1.02] tracking-[-0.025em] text-cinema"
           />
+          <AccentLine />
         </div>
 
         <div className="mt-16 border-t border-[var(--line-strong)]">

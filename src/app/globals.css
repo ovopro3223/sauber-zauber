@@ -3,29 +3,34 @@
 @tailwind utilities;
 
 :root {
-  /* Brand-locked palette matched to the official Sauber & Zauber identity */
-  --bg: #03100b;                          /* very deep emerald-black */
+  /* Brand-locked palette */
+  --bg: #03100b;
   --bg-soft: #061a13;
   --bg-elev: #08251a;
   --bg-deep: #02100a;
   --bg-emerald: #14543a;
-  --fg: #eaf6ee;                          /* warm slight-green-tinted ivory */
+  --fg: #eaf6ee;
   --fg-soft: rgba(234, 246, 238, 0.78);
   --muted: #7f9d8a;
   --muted-soft: rgba(127, 157, 138, 0.65);
-  --green-bright: #5fe3a1;                /* brand mint accent */
-  --green: #2fbf7a;                       /* brand mid green */
-  --green-deep: #1d8f5a;                  /* brand deep */
-  --green-darker: #0e5a37;                /* brand deepest */
+  --green-bright: #5fe3a1;
+  --green: #2fbf7a;
+  --green-deep: #1d8f5a;
+  --green-darker: #0e5a37;
   --green-glow: rgba(95, 227, 161, 0.42);
   --green-soft: rgba(95, 227, 161, 0.08);
-  --gold: #dcc488;                        /* used very sparingly */
+  --gold: #dcc488;
   --line: rgba(170, 230, 195, 0.12);
   --line-strong: rgba(170, 230, 195, 0.22);
   --glass: rgba(170, 230, 195, 0.03);
   --glass-strong: rgba(170, 230, 195, 0.055);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-inout: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* Cinematic text gradient — readable on dark bg */
+  --cinema-top: #f4fff8;
+  --cinema-mid: #b8e6cd;
+  --cinema-bot: #6bb98c;
 }
 
 html.light {
@@ -48,6 +53,11 @@ html.light {
   --line-strong: rgba(3, 16, 11, 0.18);
   --glass: rgba(255, 250, 240, 0.55);
   --glass-strong: rgba(255, 250, 240, 0.8);
+
+  /* Cinematic gradient: green → green (visible on cream) */
+  --cinema-top: #0a2418;
+  --cinema-mid: #14543a;
+  --cinema-bot: #2fbf7a;
 }
 
 * { border-color: var(--line); }
@@ -68,7 +78,7 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: hidden; }
 
-/* ====== Global cinematic background — matches the brand backup ====== */
+/* ====== Brand atmospheric background stack ====== */
 .bg-stage {
   position: fixed; inset: 0; z-index: -3; pointer-events: none;
   background:
@@ -77,11 +87,19 @@ html.lenis, html.lenis body { height: auto; }
     radial-gradient(1100px 900px at 50% 110%, rgba(29, 143, 90, 0.22), transparent 65%),
     linear-gradient(180deg, #02100a 0%, #03150e 50%, #02100a 100%);
 }
+html.light .bg-stage {
+  background:
+    radial-gradient(1200px 800px at 15% 10%, rgba(47, 191, 122, 0.08), transparent 60%),
+    radial-gradient(900px 700px at 85% 30%, rgba(20, 84, 58, 0.05), transparent 60%),
+    radial-gradient(1100px 900px at 50% 110%, rgba(220, 196, 136, 0.08), transparent 65%),
+    linear-gradient(180deg, #faf6ec 0%, #f5f0e3 50%, #ece4cf 100%);
+}
 
 .bg-aurora {
   position: fixed; inset: -20%; z-index: -2; pointer-events: none;
   filter: blur(80px); opacity: 0.6;
 }
+html.light .bg-aurora { opacity: 0.35; }
 .bg-aurora span {
   position: absolute; border-radius: 50%;
   mix-blend-mode: screen; will-change: transform;
@@ -122,10 +140,16 @@ html.lenis, html.lenis body { height: auto; }
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   backdrop-filter: blur(14px) saturate(140%);
 }
+html.light .glass-nav {
+  background: rgba(250, 246, 236, 0.78);
+}
 
-/* Editorial cinematic text — warm-ivory → mid-green descent */
+/* Cinematic text — readable in both themes via vars */
 .text-cinema {
-  background: linear-gradient(180deg, #f4fff8 0%, #b8e6cd 60%, #6bb98c 100%);
+  background: linear-gradient(180deg,
+    var(--cinema-top) 0%,
+    var(--cinema-mid) 60%,
+    var(--cinema-bot) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -166,7 +190,7 @@ html.lenis, html.lenis body { height: auto; }
 
 .magnetic { display: inline-flex; position: relative; isolation: isolate; }
 
-/* Buttons — mint primary, ghost outlined */
+/* Buttons */
 .btn-primary {
   position: relative;
   display: inline-flex;
@@ -185,13 +209,17 @@ html.lenis, html.lenis body { height: auto; }
   box-shadow: 0 14px 40px -10px var(--green-glow),
               inset 0 1px 0 rgba(255,255,255,0.4),
               inset 0 -1px 0 rgba(0,0,0,0.15);
-  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 20px 56px -10px var(--green-glow),
               inset 0 1px 0 rgba(255,255,255,0.5),
               inset 0 -1px 0 rgba(0,0,0,0.15);
+}
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: 0.12s;
 }
 .btn-primary::after {
   content: ''; position: absolute; inset: 0;
@@ -215,18 +243,23 @@ html.lenis, html.lenis body { height: auto; }
   font-size: 0.86rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  transition: background 0.5s var(--ease), border-color 0.5s var(--ease);
+  overflow: hidden;
+  transition: background 0.5s var(--ease), border-color 0.5s var(--ease), transform 0.4s var(--ease);
 }
 .btn-ghost:hover {
   background: var(--green-soft);
   border-color: var(--green-bright);
+}
+.btn-ghost:active {
+  transform: scale(0.98);
+  transition-duration: 0.12s;
 }
 
 /* SplitText helpers */
 .split-line { overflow: hidden; display: inline-block; }
 .split-word { display: inline-block; will-change: transform; }
 
-/* ====== Cinematic CSS animations (GPU-cheap) ====== */
+/* ====== Cinematic CSS animations ====== */
 
 @keyframes draw-in {
   from { stroke-dashoffset: 800; opacity: 0; }
@@ -266,20 +299,75 @@ html.lenis, html.lenis body { height: auto; }
   0%, 100% { box-shadow: 0 0 22px rgba(95, 227, 161, 0.30); }
   50%      { box-shadow: 0 0 42px rgba(95, 227, 161, 0.60); }
 }
-
 @keyframes sheen {
   0%   { transform: translateX(-120%) skewX(-12deg); }
   100% { transform: translateX(220%)  skewX(-12deg); }
 }
-
 @keyframes underline-grow {
   from { transform: scaleX(0); }
   to   { transform: scaleX(1); }
 }
 
-@keyframes mini-rise {
-  0%   { opacity: 0; transform: translateY(8px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* Logo orbital sparkles — three small dots with different radii, speeds */
+@keyframes orbit-1 {
+  from { transform: rotate(0deg)   translateX(90px)  rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(90px)  rotate(-360deg); }
+}
+@keyframes orbit-2 {
+  from { transform: rotate(120deg) translateX(118px) rotate(-120deg); }
+  to   { transform: rotate(480deg) translateX(118px) rotate(-480deg); }
+}
+@keyframes orbit-3 {
+  from { transform: rotate(240deg) translateX(76px)  rotate(-240deg); }
+  to   { transform: rotate(600deg) translateX(76px)  rotate(-600deg); }
+}
+@keyframes orbit-fade-in {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.logo-orbit-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.orbit-sparkle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  opacity: 0;
+  animation-fill-mode: both;
+}
+.orbit-sparkle::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: inherit;
+  filter: blur(4px);
+  opacity: 0.8;
+}
+.orbit-sparkle.s1 {
+  background: var(--green-bright);
+  box-shadow: 0 0 10px var(--green-bright);
+  animation: orbit-1 9s linear 1.5s infinite, orbit-fade-in 0.8s var(--ease) 1.5s forwards;
+}
+.orbit-sparkle.s2 {
+  background: var(--gold);
+  box-shadow: 0 0 10px var(--gold);
+  animation: orbit-2 14s linear 1.7s infinite, orbit-fade-in 0.8s var(--ease) 1.7s forwards;
+}
+.orbit-sparkle.s3 {
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: orbit-3 7s linear 1.9s infinite, orbit-fade-in 0.8s var(--ease) 1.9s forwards;
 }
 
 .draw-ornament {
@@ -315,6 +403,27 @@ html.lenis, html.lenis body { height: auto; }
   background: linear-gradient(180deg, var(--green-bright), transparent);
   animation: scroll-cue 2.6s var(--ease-inout) infinite;
 }
+
+/* TiltCard cursor-following inner light */
+.tilt-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s var(--ease);
+  will-change: transform;
+}
+.tilt-card-light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.55s var(--ease);
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(95, 227, 161, 0.16),
+    transparent 55%
+  );
+}
+.tilt-card:hover .tilt-card-light { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

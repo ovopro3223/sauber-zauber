@@ -11,16 +11,16 @@ type Props = {
 };
 
 /**
- * Magnetic hover — desktop / fine pointer only. Listeners attach to the
- * element itself (not window), so cost stays local to the button.
+ * Magnetic hover — desktop / fine pointer only. Uses an eased falloff so
+ * the pull intensifies as the cursor approaches the centre.
  */
-export function Magnetic({ children, strength = 0.25, range = 100, className }: Props) {
+export function Magnetic({ children, strength = 0.32, range = 110, className }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [enabled, setEnabled] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const sx = useSpring(x, { damping: 20, stiffness: 240, mass: 0.35 });
-  const sy = useSpring(y, { damping: 20, stiffness: 240, mass: 0.35 });
+  const sx = useSpring(x, { damping: 18, stiffness: 260, mass: 0.3 });
+  const sy = useSpring(y, { damping: 18, stiffness: 260, mass: 0.3 });
 
   useEffect(() => {
     setEnabled(window.matchMedia('(pointer: fine)').matches);
@@ -38,8 +38,12 @@ export function Magnetic({ children, strength = 0.25, range = 100, className }: 
       const dy = e.clientY - cy;
       const dist = Math.hypot(dx, dy);
       if (dist < range) {
-        x.set(dx * strength);
-        y.set(dy * strength);
+        // Eased proximity: closer cursor = stronger pull
+        const t = 1 - dist / range;
+        const eased = 1 - Math.pow(1 - t, 2); // easeOutQuad
+        const k = strength * (0.6 + eased * 0.8);
+        x.set(dx * k);
+        y.set(dy * k);
       } else {
         x.set(0);
         y.set(0);

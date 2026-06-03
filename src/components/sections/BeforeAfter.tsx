@@ -4,6 +4,8 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { SplitText } from '@/components/ui/SplitText';
 import { SectionLabel } from '@/components/ui/SectionLabel';
+import { AccentLine } from '@/components/ui/AccentLine';
+import { Counter } from '@/components/ui/Counter';
 import { useCursor } from '@/components/providers/CursorProvider';
 import { useT } from '@/components/providers/LanguageProvider';
 
@@ -27,9 +29,9 @@ export function BeforeAfter() {
       before: 'Vorher',
       after: 'Nachher',
       stats: [
-        ['97%', 'durchschn. Glanzgewinn'],
-        ['0', 'erfasste Mikro-Kratzer'],
-        ['42', 'Datenpunkte je Einsatz'],
+        { value: 97, suffix: '%', label: 'durchschn. Glanzgewinn' },
+        { value: 0, suffix: '', label: 'erfasste Mikro-Kratzer' },
+        { value: 42, suffix: '', label: 'Datenpunkte je Einsatz' },
       ],
     },
     en: {
@@ -40,9 +42,9 @@ export function BeforeAfter() {
       before: 'Before',
       after: 'After',
       stats: [
-        ['97%', 'avg. surface reflectance gain'],
-        ['0', 'micro-scratches recorded'],
-        ['42', 'data points per session'],
+        { value: 97, suffix: '%', label: 'avg. surface reflectance gain' },
+        { value: 0, suffix: '', label: 'micro-scratches recorded' },
+        { value: 42, suffix: '', label: 'data points per session' },
       ],
     },
   });
@@ -108,6 +110,7 @@ export function BeforeAfter() {
               text={t.title}
               className="mt-6 max-w-[16ch] font-display text-[clamp(2.2rem,5vw,4.8rem)] font-light leading-[1.02] tracking-[-0.025em] text-cinema"
             />
+            <AccentLine />
           </div>
           <motion.p
             initial={{ opacity: 0, y: 14 }}
@@ -163,17 +166,21 @@ export function BeforeAfter() {
         </motion.div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {t.stats.map(([num, label], i) => (
+          {t.stats.map((stat, i) => (
             <motion.div
-              key={label}
+              key={stat.label}
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-10%' }}
               transition={{ duration: 0.7, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
               className="flex items-baseline gap-5 border-t border-[var(--line)] pt-5"
             >
-              <span className="font-display text-4xl text-cinema md:text-5xl">{num}</span>
-              <span className="text-sm text-[var(--muted)]">{label}</span>
+              <Counter
+                value={stat.value}
+                suffix={stat.suffix}
+                className="font-display text-4xl text-cinema md:text-5xl"
+              />
+              <span className="text-sm text-[var(--muted)]">{stat.label}</span>
             </motion.div>
           ))}
         </div>

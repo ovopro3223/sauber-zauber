@@ -6,36 +6,20 @@ import { Magnetic } from '@/components/ui/Magnetic';
 import { Logo } from '@/components/ui/Logo';
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { useCursor } from '@/components/providers/CursorProvider';
-import { useLang, useT } from '@/components/providers/LanguageProvider';
+
+const links = [
+  { href: '#services', label: 'Leistungen' },
+  { href: '#reveal', label: 'Vorher · Nachher' },
+  { href: '#process', label: 'Prozess' },
+  { href: '#testimonials', label: 'Stimmen' },
+  { href: '#faq', label: 'FAQ' },
+];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { theme, toggle } = useTheme();
   const { setVariant } = useCursor();
-  const { lang, toggle: toggleLang } = useLang();
-
-  const links = useT({
-    de: [
-      { href: '#services', label: 'Leistungen' },
-      { href: '#reveal', label: 'Vorher · Nachher' },
-      { href: '#process', label: 'Prozess' },
-      { href: '#testimonials', label: 'Stimmen' },
-      { href: '#faq', label: 'FAQ' },
-    ],
-    en: [
-      { href: '#services', label: 'Services' },
-      { href: '#reveal', label: 'Before · After' },
-      { href: '#process', label: 'Process' },
-      { href: '#testimonials', label: 'Voices' },
-      { href: '#faq', label: 'FAQ' },
-    ],
-  });
-
-  const t = useT({
-    de: { tag: 'Berlin · Reinigung', book: 'Anfragen' },
-    en: { tag: 'Berlin · Cleaning', book: 'Inquire' },
-  });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -67,7 +51,7 @@ export function Navbar() {
                 Sauber<span className="px-0.5 italic text-mint">&amp;</span>Zauber
               </div>
               <div className="mt-1.5 text-[9px] uppercase tracking-[0.35em] text-[var(--muted)]">
-                {t.tag}
+                Berlin · Reinigung
               </div>
             </div>
           </a>
@@ -97,43 +81,34 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
-            {/* Language toggle */}
-            <button
-              onClick={toggleLang}
-              aria-label="Sprache wechseln / Toggle language"
-              className="relative flex h-10 items-center rounded-full border border-[var(--line)] px-1 text-[10px] uppercase tracking-[0.25em]"
+            {/* Phone icon — links to tel: */}
+            <a
+              href="tel:+4917623220656"
+              aria-label="Anrufen"
+              title="+49 176 23220656"
+              className="group flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)] transition-colors duration-500 hover:border-mint hover:text-mint"
               onMouseEnter={() => setVariant('hover')}
               onMouseLeave={() => setVariant('default')}
             >
-              <span
-                className={`relative z-10 px-3 py-1.5 transition-colors duration-500 ${
-                  lang === 'de' ? 'text-[#042014]' : 'text-[var(--fg-soft)]'
-                }`}
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="transition-transform duration-500 group-hover:rotate-[-12deg]"
               >
-                DE
-              </span>
-              <span
-                className={`relative z-10 px-3 py-1.5 transition-colors duration-500 ${
-                  lang === 'en' ? 'text-[#042014]' : 'text-[var(--fg-soft)]'
-                }`}
-              >
-                EN
-              </span>
-              <motion.span
-                layout
-                transition={{ type: 'spring', damping: 24, stiffness: 280 }}
-                className="absolute top-1 bottom-1 w-[44px] rounded-full"
-                style={{
-                  background: 'linear-gradient(180deg, #6fefac 0%, #2fbf7a 100%)',
-                  left: lang === 'de' ? 4 : 48,
-                }}
-              />
-            </button>
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.79a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.89.34 1.83.57 2.79.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+            </a>
 
             <button
               onClick={toggle}
-              aria-label="Toggle theme"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)]"
+              aria-label="Theme wechseln"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)] transition-colors duration-500 hover:border-mint hover:text-mint"
               onMouseEnter={() => setVariant('hover')}
               onMouseLeave={() => setVariant('default')}
             >
@@ -165,15 +140,6 @@ export function Navbar() {
               </AnimatePresence>
             </button>
 
-            <a
-              href="tel:+4917623220656"
-              className="hidden xl:inline-flex items-center gap-2 rounded-full border border-[var(--line-strong)] bg-[var(--green-soft)] px-4 py-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-mint transition-colors hover:bg-[rgba(95,227,161,0.1)]"
-              onMouseEnter={() => setVariant('hover')}
-              onMouseLeave={() => setVariant('default')}
-            >
-              +49 176 23220656
-            </a>
-
             <Magnetic strength={0.18} range={70}>
               <a
                 href="#contact"
@@ -181,7 +147,7 @@ export function Navbar() {
                 onMouseEnter={() => setVariant('hover')}
                 onMouseLeave={() => setVariant('default')}
               >
-                {t.book}
+                Anfragen
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M13 5l7 7-7 7" />
                 </svg>
@@ -191,7 +157,7 @@ export function Navbar() {
             <button
               onClick={() => setOpen((s) => !s)}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)] lg:hidden"
-              aria-label="Menu"
+              aria-label="Menü"
             >
               <div className="flex flex-col gap-1.5">
                 <motion.span

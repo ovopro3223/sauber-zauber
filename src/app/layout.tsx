@@ -9,6 +9,7 @@ import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { Cursor } from '@/components/ui/Cursor';
 import { Navbar } from '@/components/sections/Navbar';
 import { AmbientLights } from '@/components/ui/AmbientLights';
+import { ScrollProgress } from '@/components/ui/ScrollProgress';
 
 const sans = Inter({
   subsets: ['latin'],
@@ -67,6 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Cursor />
               <AmbientLights />
               <SmoothScroll>
+                <ScrollProgress />
                 <Navbar />
                 <main className="relative z-10">{children}</main>
               </SmoothScroll>

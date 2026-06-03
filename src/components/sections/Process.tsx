@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { SplitText } from '@/components/ui/SplitText';
 import { SectionLabel } from '@/components/ui/SectionLabel';
+import { AccentLine } from '@/components/ui/AccentLine';
 import { useT } from '@/components/providers/LanguageProvider';
 
 export function Process() {
@@ -50,6 +51,7 @@ export function Process() {
               text={t.title}
               className="mt-6 max-w-[18ch] font-display text-[clamp(2.2rem,5vw,4.8rem)] font-light leading-[1.02] tracking-[-0.025em] text-cinema"
             />
+            <AccentLine />
           </div>
           <motion.p
             initial={{ opacity: 0, y: 14 }}

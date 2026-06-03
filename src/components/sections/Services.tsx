@@ -4,6 +4,8 @@ import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { SplitText } from '@/components/ui/SplitText';
 import { SectionLabel } from '@/components/ui/SectionLabel';
+import { AccentLine } from '@/components/ui/AccentLine';
+import { TiltCard } from '@/components/ui/TiltCard';
 import { useCursor } from '@/components/providers/CursorProvider';
 import { useT } from '@/components/providers/LanguageProvider';
 
@@ -139,6 +141,7 @@ export function Services() {
               text={t.title}
               className="mt-6 max-w-[18ch] font-display text-[clamp(2.2rem,5vw,4.8rem)] font-light leading-[1.02] tracking-[-0.025em] text-cinema"
             />
+            <AccentLine />
           </div>
           <motion.p
             initial={{ opacity: 0, y: 14 }}
@@ -248,42 +251,53 @@ function ServiceCard({
   onLeave: () => void;
 }) {
   return (
-    <article
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-      className="group relative h-[58vh] w-[78vw] max-w-[460px] shrink-0 overflow-hidden rounded-[24px] border border-[var(--line)] bg-[rgba(8,30,22,0.45)] p-10 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 hover:border-[var(--line-strong)] hover:shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6),0_0_60px_-20px_var(--green-glow)]"
+    <TiltCard
+      intensity={7}
+      className="h-[58vh] w-[78vw] max-w-[460px] shrink-0"
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-        style={{
-          background:
-            'radial-gradient(ellipse 70% 60% at 80% -10%, rgba(95,227,161,0.18), transparent 60%)',
-        }}
-      />
-      <div className="relative flex h-full flex-col justify-between">
-        <div className="flex items-start justify-between">
-          <span className="font-mono text-xs text-mint">{service.no}</span>
-          <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">{service.sub}</span>
+      <article
+        onMouseEnter={onEnter}
+        onMouseLeave={onLeave}
+        className="group relative h-full w-full overflow-hidden rounded-[24px] border border-[var(--line)] bg-[rgba(8,30,22,0.45)] p-10 transition-[border-color,box-shadow] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[var(--line-strong)] hover:shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6),0_0_60px_-20px_var(--green-glow)]"
+      >
+        {/* Cursor-following inner light */}
+        <span aria-hidden className="tilt-card-light rounded-[24px]" />
+
+        {/* Static top corner wash */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+          style={{
+            background:
+              'radial-gradient(ellipse 70% 60% at 80% -10%, rgba(95,227,161,0.18), transparent 60%)',
+          }}
+        />
+
+        <div className="relative flex h-full flex-col justify-between">
+          <div className="flex items-start justify-between">
+            <span className="font-mono text-xs text-mint">{service.no}</span>
+            <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">{service.sub}</span>
+          </div>
+          <div>
+            <h3 className="font-display text-[clamp(1.9rem,2.6vw,2.5rem)] leading-[1.02] tracking-[-0.02em] text-cinema">
+              {service.title}
+            </h3>
+            <p className="mt-4 max-w-md text-[15px] leading-[1.65] text-[var(--fg-soft)]">{service.body}</p>
+          </div>
+          <div>
+            <div className="divider-gradient mb-4" />
+            <ul className="grid grid-cols-3 gap-4">
+              {service.metrics.map(([k, v]) => (
+                <li key={k}>
+                  <div className="text-[9px] uppercase tracking-[0.3em] text-[var(--muted)]">{k}</div>
+                  <div className="mt-1.5 font-display text-sm text-[var(--fg)]">{v}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <div>
-          <h3 className="font-display text-[clamp(1.9rem,2.6vw,2.5rem)] leading-[1.02] tracking-[-0.02em] text-cinema">
-            {service.title}
-          </h3>
-          <p className="mt-4 max-w-md text-[15px] leading-[1.65] text-[var(--fg-soft)]">{service.body}</p>
-        </div>
-        <div>
-          <div className="divider-gradient mb-4" />
-          <ul className="grid grid-cols-3 gap-4">
-            {service.metrics.map(([k, v]) => (
-              <li key={k}>
-                <div className="text-[9px] uppercase tracking-[0.3em] text-[var(--muted)]">{k}</div>
-                <div className="mt-1.5 font-display text-sm text-[var(--fg)]">{v}</div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </article>
+      </article>
+    </TiltCard>
   );
 }
 
