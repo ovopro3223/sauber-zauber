@@ -64,10 +64,10 @@ export function Services() {
         },
       ] as Service[],
       bespoke: {
-        eye: 'Maßgeschneidert',
+        eye: 'Sonderwunsch',
         title: 'Etwas Besonderes geplant?',
-        body: 'Erzählen Sie es uns — wir komponieren leise und innerhalb einer Woche ein passendes Programm.',
-        cta: 'Mit uns gestalten',
+        body: 'Erzählen Sie uns von Ihrem Anliegen — wir melden uns innerhalb von 24 Stunden mit einem passenden Vorschlag.',
+        cta: 'Anfragen',
       },
     },
     en: {
@@ -113,10 +113,10 @@ export function Services() {
         },
       ] as Service[],
       bespoke: {
-        eye: 'Bespoke',
-        title: "Don't see your need?",
-        body: "Tell us about your space. We'll compose a tailored program — quietly, within a week.",
-        cta: 'Compose with us',
+        eye: 'Special request',
+        title: 'Something specific in mind?',
+        body: "Tell us what you need — we'll get back to you within 24 hours with a tailored proposal.",
+        cta: 'Inquire',
       },
     },
   });

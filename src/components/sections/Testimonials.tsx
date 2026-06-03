@@ -15,30 +15,90 @@ export function Testimonials() {
   const t = useT({
     de: {
       label: 'Stimmen',
-      title: 'Leise gesagt. Laut gespürt.',
+      title: 'Was unsere Kunden sagen.',
       lede:
-        'Wir bitten nicht um Bewertungen. Diese sind Briefe, die wir erhalten haben — geteilt mit Erlaubnis und nur mit Initialen.',
+        'Echte Rückmeldungen aus Berlin — von Familien, Büros und Geschäften, die uns regelmäßig vertrauen.',
       voices: [
-        { quote: 'Sie haben meine Wohnung in Schöneberg geputzt wie ein Instrument gestimmt. Ich kam in ein Schweigen heim — eine andere Lichtgeometrie.', author: 'Lena V.', role: 'Architektin', city: 'Berlin' },
-        { quote: 'Diskret, erschütternd präzise. Sie haben eine Lederbibliothek aus den 1920ern so sorgfältig behandelt wie mein Mann seine Celli.', author: 'Frau K.', role: 'Sammlerin', city: 'Hamburg' },
-        { quote: 'Unser Atelier schließt nie. Sie arbeiten zwischen 2 und 6 Uhr, und wir öffnen um neun in einem weicheren Studio.', author: 'Studio Maren', role: 'Gründerin', city: 'Berlin' },
-        { quote: 'Die Vorbereitung vor unserer Ankunft ist sehenswert. Wäsche gebügelt, Duft entzündet, Musik bereit. Eine Choreografie.', author: 'Kapitän D.', role: 'Yacht-Steward', city: 'Côte d’Azur' },
-        { quote: 'Ich habe um 23:14 angefragt. Um 00:02 hatte der Concierge geantwortet. Leise, behandschuht, perfekt.', author: 'Henrik B.', role: 'Privatbüro', city: 'Zürich' },
+        {
+          quote:
+            'Pünktlich, freundlich und am Ende glänzt wirklich alles. Seit drei Monaten kommen sie alle zwei Wochen — ich denke gar nicht mehr darüber nach.',
+          author: 'Anna M.',
+          role: 'Familie',
+          city: 'Prenzlauer Berg',
+        },
+        {
+          quote:
+            'Wir buchen sie für unser Büro in Mitte. Diskret, sorgfältig, und unser Team kommt jeden Morgen in saubere Räume. Genau so soll es sein.',
+          author: 'Tobias W.',
+          role: 'Geschäftsführer',
+          city: 'Berlin-Mitte',
+        },
+        {
+          quote:
+            'Nach der Renovierung war alles voller Bauschutt und Staub. In einem Tag haben sie die ganze Wohnung übergabefertig gemacht — wir konnten direkt einziehen.',
+          author: 'Familie H.',
+          role: 'Privatkunden',
+          city: 'Charlottenburg',
+        },
+        {
+          quote:
+            'Streifenfrei — wirklich streifenfrei. Unser Café in Friedrichshain wirkt jetzt heller, und unsere Gäste merken den Unterschied sofort.',
+          author: 'Sarah L.',
+          role: 'Café-Inhaberin',
+          city: 'Friedrichshain',
+        },
+        {
+          quote:
+            'Wir haben drei Reinigungsfirmen ausprobiert. Nur Sauber & Zauber liefert konstant gute Qualität — und das Team ist seit über einem Jahr dasselbe.',
+          author: 'Architekturbüro K.',
+          role: 'Geschäftskunde',
+          city: 'Kreuzberg',
+        },
       ],
       prev: 'Vorherige',
       next: 'Nächste',
     },
     en: {
       label: 'Voices',
-      title: 'Spoken softly. Felt loudly.',
+      title: 'What our clients say.',
       lede:
-        "We don't solicit reviews. These are letters we received, shared with permission and only first initials.",
+        'Real feedback from Berlin — from families, offices and small businesses who trust us on a regular basis.',
       voices: [
-        { quote: 'They cleaned my flat in Schöneberg as if they were tuning an instrument. I came home to a hush — a different geometry of light.', author: 'Lena V.', role: 'Architect', city: 'Berlin' },
-        { quote: 'Discreet, devastatingly precise. They handled a 1920s leather library as carefully as my husband handles his cellos.', author: 'Frau K.', role: 'Collector', city: 'Hamburg' },
-        { quote: 'Our atelier never closes. They do their work between 2 and 6 a.m., and we open at nine to a softer studio.', author: 'Studio Maren', role: 'Founder', city: 'Berlin' },
-        { quote: 'The pre-arrival turnaround is something to witness. Linens pressed, scent lit, music queued. A choreography.', author: 'Captain D.', role: 'Yacht steward', city: 'Côte d’Azur' },
-        { quote: 'I sent a request at 23:14. By 00:02 a concierge had answered. Quiet, gloved, perfect.', author: 'Henrik B.', role: 'Private office', city: 'Zürich' },
+        {
+          quote:
+            "Punctual, friendly, and at the end everything really shines. They've come every two weeks for three months — I don't even think about it anymore.",
+          author: 'Anna M.',
+          role: 'Family',
+          city: 'Prenzlauer Berg',
+        },
+        {
+          quote:
+            'We book them for our office in Mitte. Discreet, thorough, and our team arrives every morning to clean rooms. Exactly as it should be.',
+          author: 'Tobias W.',
+          role: 'Managing Director',
+          city: 'Berlin-Mitte',
+        },
+        {
+          quote:
+            'After the renovation everything was full of dust and debris. In one day they made the whole apartment handover-ready — we could move straight in.',
+          author: 'Family H.',
+          role: 'Private clients',
+          city: 'Charlottenburg',
+        },
+        {
+          quote:
+            'Streak-free — truly streak-free. Our café in Friedrichshain looks brighter now, and our guests notice the difference immediately.',
+          author: 'Sarah L.',
+          role: 'Café owner',
+          city: 'Friedrichshain',
+        },
+        {
+          quote:
+            'We tried three cleaning companies. Only Sauber & Zauber delivers consistently good quality — and the team has been the same for over a year.',
+          author: 'Architecture studio K.',
+          role: 'Business client',
+          city: 'Kreuzberg',
+        },
       ],
       prev: 'Previous',
       next: 'Next',
@@ -82,12 +142,13 @@ export function Testimonials() {
           </motion.p>
         </div>
 
-        <div className="relative mt-16 grid items-center gap-10 md:mt-20 md:gap-12 lg:grid-cols-[auto_1fr_auto]">
-          <div className="order-2 lg:order-1">
+        {/* Desktop: arrows flank the quote · Mobile: quote on top, single control row below */}
+        <div className="relative mt-14 lg:mt-20 lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-12">
+          <div className="hidden lg:block">
             <NavBtn dir={-1} aria={t.prev} onClick={() => go(-1)} setVariant={setVariant} />
           </div>
 
-          <div className="order-1 min-h-[280px] lg:order-2">
+          <div className="min-h-[260px] md:min-h-[280px]">
             <AnimatePresence mode="wait">
               <motion.figure
                 key={index}
@@ -97,14 +158,14 @@ export function Testimonials() {
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 className="relative"
               >
-                <svg width="40" height="40" viewBox="0 0 24 24" className="mb-6 text-mint opacity-70" fill="currentColor">
+                <svg width="36" height="36" viewBox="0 0 24 24" className="mb-5 text-mint opacity-70 md:mb-6 md:h-10 md:w-10" fill="currentColor">
                   <path d="M7.17 6A5.17 5.17 0 0 0 2 11.17v6.83h6.83V11.17H5.17C5.17 9.42 6.42 8 8.17 8V6h-1zM18.17 6A5.17 5.17 0 0 0 13 11.17v6.83h6.83V11.17h-3.66C16.17 9.42 17.42 8 19.17 8V6h-1z" />
                 </svg>
-                <blockquote className="max-w-3xl font-display text-[clamp(1.5rem,2.6vw,2.4rem)] font-light leading-[1.22] tracking-[-0.015em] text-cinema">
+                <blockquote className="max-w-3xl font-display text-[clamp(1.35rem,2.6vw,2.4rem)] font-light leading-[1.25] tracking-[-0.015em] text-cinema">
                   &ldquo;{current.quote}&rdquo;
                 </blockquote>
-                <figcaption className="mt-10 flex flex-wrap items-baseline gap-x-6 gap-y-2 border-t border-[var(--line)] pt-5">
-                  <span className="font-display text-lg text-[var(--fg)]">{current.author}</span>
+                <figcaption className="mt-8 flex flex-wrap items-baseline gap-x-5 gap-y-1.5 border-t border-[var(--line)] pt-4 md:mt-10 md:pt-5">
+                  <span className="font-display text-base text-[var(--fg)] md:text-lg">{current.author}</span>
                   <span className="text-[10px] uppercase tracking-[0.32em] text-[var(--muted)]">
                     {current.role} · {current.city}
                   </span>
@@ -113,12 +174,35 @@ export function Testimonials() {
             </AnimatePresence>
           </div>
 
-          <div className="order-3">
+          <div className="hidden lg:block">
             <NavBtn dir={1} aria={t.next} onClick={() => go(1)} setVariant={setVariant} />
           </div>
         </div>
 
-        <div className="mt-14 flex items-center justify-center gap-6">
+        {/* Mobile control bar: prev — dots — next, all on one row */}
+        <div className="mt-10 flex items-center justify-between gap-4 lg:hidden">
+          <NavBtn dir={-1} aria={t.prev} onClick={() => go(-1)} setVariant={setVariant} compact />
+          <div className="flex items-center gap-3">
+            {t.voices.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                aria-label={`${t.next} ${i + 1}`}
+                className="group relative h-5 w-7"
+              >
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-[var(--line-strong)]" />
+                <span
+                  className="absolute left-0 top-1/2 h-px origin-left bg-[var(--fg)] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  style={{ width: '100%', transform: `scaleX(${i === index ? 1 : 0})` }}
+                />
+              </button>
+            ))}
+          </div>
+          <NavBtn dir={1} aria={t.next} onClick={() => go(1)} setVariant={setVariant} compact />
+        </div>
+
+        {/* Desktop dots row */}
+        <div className="mt-14 hidden items-center justify-center gap-6 lg:flex">
           {t.voices.map((_, i) => (
             <button
               key={i}
@@ -149,22 +233,26 @@ function NavBtn({
   aria,
   onClick,
   setVariant,
+  compact = false,
 }: {
   dir: -1 | 1;
   aria: string;
   onClick: () => void;
   setVariant: (v: 'hover' | 'default') => void;
+  compact?: boolean;
 }) {
+  const size = compact ? 'h-10 w-10' : 'h-12 w-12';
+  const iconSize = compact ? 12 : 14;
   return (
     <button
       onClick={onClick}
       onMouseEnter={() => setVariant('hover')}
       onMouseLeave={() => setVariant('default')}
       aria-label={aria}
-      className="group flex h-12 w-12 items-center justify-center rounded-full border border-[var(--line-strong)] transition-colors duration-500 hover:border-mint"
+      className={`group flex shrink-0 ${size} items-center justify-center rounded-full border border-[var(--line-strong)] transition-colors duration-500 hover:border-mint active:scale-95`}
     >
       <svg
-        width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"
+        width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"
         className={`transition-transform duration-500 ${dir === -1 ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}
         style={{ transform: dir === -1 ? 'scaleX(-1)' : undefined }}
       >

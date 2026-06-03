@@ -13,26 +13,62 @@ export function FAQ() {
   const t = useT({
     de: {
       label: 'FAQ',
-      title: 'Leise Fragen, offen beantwortet.',
+      title: 'Häufige Fragen, klar beantwortet.',
       faqs: [
-        { q: 'Wie unterscheidet sich Sauber & Zauber von einer Standardreinigung?', a: 'Wir skalieren nicht über Volumen, sondern über Präzision. Jedes Team wird von einem Conductor geleitet, der Ihren Raum, Ihre Oberflächen und Ihre Vorlieben mit Namen kennt. Service wird choreografiert, nicht disponiert.' },
-        { q: 'Sind Ihre Teams geprüft und versichert?', a: 'Ja. Jeder Spezialist durchläuft eine Hintergrundprüfung, eine interne Trainingsresidenz und einen NDA. Alle Einsätze sind bis €10 Mio versichert und in einem privaten, DSGVO-konformen Log dokumentiert.' },
-        { q: 'Welche Mittel verwenden Sie auf empfindlichen Oberflächen?', a: 'Unsere Formeln sind eco-luxe und oberflächenabgestimmt: pH-balancierte Reiniger für Marmor und Travertin, restauratorisch hochwertige Konditionierer für Leder und geöltes Holz, HEPA- und UV-Systeme für Archivräume.' },
-        { q: 'Können Sie mehrere Wohnsitze betreuen?', a: 'Ja — unser Privé-Programm koordiniert über Wohnsitze, Yachten, Jets und Büros, mit einer einzigen Concierge-Linie und vereinheitlichter Planung.' },
-        { q: 'Wie beginne ich?', a: 'Eine 45-minütige private Beratung. Wir gehen durch Ihren Raum, machen Oberflächennotizen, kalibrieren Ihre Vorlieben und liefern innerhalb von 24 Stunden ein komponiertes Programm.' },
-        { q: 'Ist Ihr Service außerhalb Deutschlands verfügbar?', a: 'Feste Teams arbeiten in Berlin, Hamburg, München und Zürich. Wir komponieren reisende Programme für Kunden an der Côte d\'Azur, im Engadin, auf Mallorca und den griechischen Inseln.' },
+        {
+          q: 'Wann erhalte ich ein Angebot?',
+          a: 'Wir antworten innerhalb von 24 Stunden auf jede Anfrage — meist schon am selben Werktag. Das erste Angebot ist immer unverbindlich und kostenlos.',
+        },
+        {
+          q: 'Sind Ihre Teams versichert?',
+          a: 'Ja. Alle Mitarbeiter sind angemeldet, geschult und vollständig haftpflichtversichert. Sollte einmal etwas passieren, wird es schnell und unkompliziert geregelt.',
+        },
+        {
+          q: 'Welche Reinigungsmittel verwenden Sie?',
+          a: 'Standardmäßig nutzen wir hochwertige Profi-Mittel, die Oberflächen schonen. Auf Wunsch arbeiten wir mit umweltfreundlichen, bio-zertifizierten Produkten — besonders sinnvoll bei Allergikern, Haustieren oder Kindern.',
+        },
+        {
+          q: 'Buche ich einmalig oder regelmäßig?',
+          a: 'Beides ist möglich. Viele Kunden starten mit einer einmaligen Reinigung und steigen dann auf einen wöchentlichen oder zweiwöchentlichen Rhythmus um. Sie binden sich nicht an einen Vertrag — Sie können jederzeit pausieren oder kündigen.',
+        },
+        {
+          q: 'Wer kommt zu mir nach Hause?',
+          a: 'Wir arbeiten mit einem festen Stammteam. Sie lernen Ihre Reinigungskräfte persönlich kennen, und so weit möglich kommen immer dieselben Personen — das schafft Vertrauen und konstante Qualität.',
+        },
+        {
+          q: 'Reinigen Sie auch außerhalb Berlins?',
+          a: 'Nein, wir sind ausschließlich in Berlin tätig und kennen jede Ecke der Stadt. So bleiben unsere Wege kurz und wir können auch kurzfristige Termine zuverlässig wahrnehmen.',
+        },
       ],
     },
     en: {
       label: 'FAQ',
-      title: 'Quiet curiosities, openly addressed.',
+      title: 'Frequent questions, clearly answered.',
       faqs: [
-        { q: 'How is Sauber & Zauber different from a standard service?', a: "We don't scale by volume — we scale by precision. Every crew is led by a conductor who knows your space, your surfaces, and your preferences by name. Service is choreographed, not dispatched." },
-        { q: 'Are your crews vetted and insured?', a: 'Yes. Every specialist passes a background screening, an in-house training residency, and an NDA. All sessions are insured to €10M and documented in a private, GDPR-compliant log.' },
-        { q: 'What products do you use on delicate surfaces?', a: 'Our formulas are eco-luxe and surface-matched: pH-balanced cleansers for marble & travertine, conservator-grade conditioners for leather and oiled wood, and HEPA + UV systems for archival rooms.' },
-        { q: 'Can you serve multiple residences?', a: 'Yes — our Privé program coordinates across residences, yachts, jets, and offices, with a single concierge line and unified scheduling.' },
-        { q: 'How do I begin?', a: 'A 45-minute private consultation. We walk through your space, take surface notes, calibrate your preferences, and return a composed program within 24 hours.' },
-        { q: 'Is your service available outside Germany?', a: "Permanent crews operate in Berlin, Hamburg, Munich, and Zürich. We compose travelling programs for clients in Côte d'Azur, the Engadin, Mallorca, and the Greek islands." },
+        {
+          q: 'When will I receive a quote?',
+          a: 'We reply to every inquiry within 24 hours — usually the same business day. The first quote is always non-binding and free of charge.',
+        },
+        {
+          q: 'Are your teams insured?',
+          a: 'Yes. All staff are properly employed, trained, and fully liability-insured. If anything ever goes wrong, it is resolved quickly and without hassle.',
+        },
+        {
+          q: 'What cleaning products do you use?',
+          a: 'By default we use high-quality professional products that protect surfaces. On request we work with eco-friendly, certified-organic products — especially useful for allergy sufferers, pets, or children.',
+        },
+        {
+          q: 'Do I book once or regularly?',
+          a: 'Both are possible. Many clients start with a one-off cleaning and then move to a weekly or bi-weekly rhythm. No contract — you can pause or cancel anytime.',
+        },
+        {
+          q: 'Who comes to my home?',
+          a: 'We work with a fixed regular team. You get to know your cleaners personally, and as much as possible the same people come each time — that builds trust and consistent quality.',
+        },
+        {
+          q: 'Do you also clean outside Berlin?',
+          a: 'No, we operate exclusively in Berlin and know every corner of the city. That keeps our routes short and lets us reliably handle even last-minute appointments.',
+        },
       ],
     },
   });

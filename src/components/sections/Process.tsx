@@ -20,7 +20,7 @@ export function Process() {
         'Reinigung ist keine Transaktion — sie ist eine Abfolge bewusster Handlungen. Jede ist komponiert, partituriert und leise ausgeführt.',
       steps: [
         { no: '01', title: 'Komposition', sub: 'Beratung', body: 'Ein privater Rundgang — architektonische Notizen, Oberflächenkartierung, Duft- und Akustikpräferenzen werden leise erfasst.', time: '45 Min' },
-        { no: '02', title: 'Choreografie', sub: 'Plan', body: 'Ihr Atelier-Programm wird komponiert: Teamgröße, Rhythmus, Mittel, Zugangsprotokolle — versioniert und unterzeichnet.', time: '24 Std' },
+        { no: '02', title: 'Choreografie', sub: 'Plan', body: 'Wir stellen den passenden Reinigungsplan zusammen: Teamgröße, Rhythmus, Mittel und Zugang — Sie erhalten ein verbindliches Angebot.', time: '24 Std' },
         { no: '03', title: 'Performance', sub: 'Einsatz', body: 'Ein engagiertes Team arbeitet diskret und leise. Akustikbewusst, materialschonend, Archiv-Log-konform.', time: 'Wiederkehrend' },
         { no: '04', title: 'Verfeinerung', sub: 'Qualitätsritual', body: 'Wir prüfen uns vierteljährlich selbst: Foto-Logs, Oberflächenkennzahlen, Ihr Feedback. Das Programm wächst mit Ihrem Raum.', time: 'Fortlaufend' },
       ],
