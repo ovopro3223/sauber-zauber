@@ -1,20 +1,27 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Logo } from '@/components/ui/Logo';
 import { useCursor } from '@/components/providers/CursorProvider';
 
 const columns = [
   {
-    title: 'Programs',
-    items: ['Maison', 'Atelier', 'Privé', 'Restoration', 'Concierge stay'],
+    title: 'Leistungen',
+    items: [
+      { label: 'Hausreinigung', href: '#services' },
+      { label: 'Büroreinigung', href: '#services' },
+      { label: 'Glas- & Fensterreinigung', href: '#services' },
+      { label: 'Reinigung nach Bauphasen', href: '#services' },
+      { label: 'Möbelreinigung', href: '#services' },
+    ],
   },
   {
-    title: 'Atelier',
-    items: ['Our story', 'Crew & training', 'Press', 'Letters', 'Careers'],
-  },
-  {
-    title: 'Cities',
-    items: ['Munich', 'Hamburg', 'Berlin', 'Zürich', 'On retreat'],
+    title: 'Kontakt',
+    items: [
+      { label: '+49 176 23220656', href: 'tel:+4917623220656' },
+      { label: 'info@sauberundzauber.de', href: 'mailto:info@sauberundzauber.de' },
+      { label: 'Dossestr. 6, 10247 Berlin', href: '#' },
+    ],
   },
 ];
 
@@ -22,17 +29,7 @@ export function Footer() {
   const { setVariant } = useCursor();
 
   return (
-    <footer className="relative isolate overflow-hidden bg-[var(--bg)]">
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 50% at 50% 100%, rgba(20,84,58,0.16), transparent 60%),' +
-            'radial-gradient(ellipse 60% 40% at 20% 0%, rgba(220,196,136,0.05), transparent 60%)',
-        }}
-      />
-
+    <footer className="relative isolate overflow-hidden">
       <div className="relative mx-auto w-[min(1400px,92vw)] pt-32">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -41,14 +38,13 @@ export function Footer() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12 eyebrow"
         >
-          <span>Sauber &amp; Zauber · Est. Munich</span>
+          Andere schrubben · Wir zaubern
         </motion.div>
 
-        {/* Mega wordmark — gentle CSS drift, no scroll-bound parallax */}
-        <h2 className="overflow-hidden font-display text-[clamp(3.8rem,17vw,18rem)] font-light leading-[0.85] tracking-[-0.045em] text-cinema anim-wordmark-drift">
-          Sauber<span className="text-gold-soft">.</span>
+        <h2 className="overflow-hidden font-display text-[clamp(3.6rem,16vw,17rem)] font-light leading-[0.85] tracking-[-0.045em] text-cinema anim-wordmark-drift">
+          Sauber<span className="text-mint">.</span>
           <br />
-          Zauber<span className="text-gold-soft">.</span>
+          Zauber<span className="text-mint">.</span>
         </h2>
 
         <div className="mt-20 grid gap-12 md:grid-cols-[2fr_3fr]">
@@ -58,10 +54,16 @@ export function Footer() {
             viewport={{ once: true, margin: '-10%' }}
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="max-w-md text-[var(--fg-soft)] leading-[1.7]">
-              A private cleaning atelier for those who treat home,
-              studio, and stillness as art forms. Reach us by letter,
-              by call, or by quiet introduction.
+            <a href="#top" className="flex items-center gap-3">
+              <Logo size={48} />
+              <span className="font-display text-[18px] leading-none tracking-tight">
+                Sauber<span className="px-0.5 italic text-mint">&amp;</span>Zauber
+              </span>
+            </a>
+            <p className="mt-6 max-w-md text-[var(--fg-soft)] leading-[1.7]">
+              Premium-Reinigungsdienste in Berlin — diskret, gründlich,
+              magisch sauber. Auf Wunsch mit umweltfreundlichen Mitteln und
+              festem Stammteam.
             </p>
             <form
               onSubmit={(e) => e.preventDefault()}
@@ -69,23 +71,23 @@ export function Footer() {
             >
               <input
                 type="email"
-                placeholder="Your letter address"
+                placeholder="Ihre E-Mail Adresse"
                 className="flex-1 bg-transparent px-4 py-2 text-sm text-[var(--fg)] outline-none placeholder:text-[var(--muted)]"
                 onFocus={() => setVariant('text')}
                 onBlur={() => setVariant('default')}
               />
               <button
                 type="submit"
-                className="rounded-full bg-[var(--fg)] px-5 py-2.5 text-[10px] font-medium uppercase tracking-[0.25em] text-[var(--bg)] transition-colors hover:bg-[var(--cream)]"
+                className="rounded-full bg-gradient-to-b from-[#6fefac] to-[#2fbf7a] px-5 py-2.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-[#042014] transition-transform hover:-translate-y-0.5"
                 onMouseEnter={() => setVariant('hover')}
                 onMouseLeave={() => setVariant('default')}
               >
-                Subscribe
+                Abonnieren
               </button>
             </form>
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
             {columns.map((col, i) => (
               <motion.div
                 key={col.title}
@@ -97,16 +99,16 @@ export function Footer() {
                 <h4 className="text-[10px] uppercase tracking-[0.32em] text-[var(--muted)]">{col.title}</h4>
                 <ul className="mt-5 space-y-3">
                   {col.items.map((item) => (
-                    <li key={item}>
+                    <li key={item.label}>
                       <a
-                        href="#"
+                        href={item.href}
                         className="group relative inline-block text-[14px] text-[var(--fg-soft)] transition-colors hover:text-[var(--fg)]"
                         onMouseEnter={() => setVariant('hover')}
                         onMouseLeave={() => setVariant('default')}
                       >
                         <span className="relative">
-                          {item}
-                          <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-gold-soft transition-all duration-500 group-hover:w-full" />
+                          {item.label}
+                          <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-mint transition-all duration-500 group-hover:w-full" />
                         </span>
                       </a>
                     </li>
@@ -117,23 +119,18 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-20 flex flex-col gap-6 border-t border-[var(--line-strong)] py-8 text-[10px] uppercase tracking-[0.32em] text-[var(--muted)] md:flex-row md:items-center md:justify-between">
+        <div className="mt-20 flex flex-col gap-6 border-t border-[var(--line-strong)] py-8 text-[10px] uppercase tracking-[0.28em] text-[var(--muted)] md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-4">
-            <span>© {new Date().getFullYear()} Sauber &amp; Zauber GmbH</span>
+            <span>© {new Date().getFullYear()} Sauber &amp; Zauber</span>
             <span className="hidden md:inline">·</span>
-            <a href="#" className="transition-colors hover:text-[var(--fg)]">Imprint</a>
-            <a href="#" className="transition-colors hover:text-[var(--fg)]">Datenschutz</a>
+            <a href="https://sauberundzauber.de/impressum/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--fg)]">Impressum</a>
+            <a href="https://sauberundzauber.de/datenschutz/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--fg)]">Datenschutz</a>
           </div>
           <div className="flex items-center gap-5">
             {['Instagram', 'Pinterest', 'LinkedIn'].map((s) => (
               <a key={s} href="#" className="transition-colors hover:text-[var(--fg)]">{s}</a>
             ))}
           </div>
-        </div>
-
-        <div className="pointer-events-none flex items-center justify-between py-10 text-[10px] uppercase tracking-[0.32em] text-[var(--muted)]">
-          <span>Munich · Hamburg · Berlin · Zürich</span>
-          <span>Composed with care</span>
         </div>
       </div>
     </footer>

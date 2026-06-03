@@ -31,20 +31,22 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Sauber & Zauber — Cleaning Atelier · Munich',
+  title: 'Sauber & Zauber — Andere schrubben, wir zaubern.',
   description:
-    'A private cleaning atelier composing white-glove, choreographed cleaning rituals for refined homes, studios, and discreet offices.',
-  metadataBase: new URL('https://sauber-zauber.de'),
+    'Premium-Reinigung in Berlin. Haus, Büro, Glas, nach Bauphasen und Möbel — diskret, gründlich, magisch sauber.',
+  metadataBase: new URL('https://sauberundzauber.de'),
+  icons: { icon: '/logo.png', apple: '/logo.png' },
   openGraph: {
-    title: 'Sauber & Zauber — Cleaning Atelier · Munich',
+    title: 'Sauber & Zauber — Andere schrubben, wir zaubern.',
     description:
-      'White-glove, choreographed cleaning rituals for refined homes, studios, and discreet offices.',
+      'Premium-Reinigungsdienste in Berlin — diskret, gründlich, magisch sauber.',
     type: 'website',
+    locale: 'de_DE',
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#060f0c',
+  themeColor: '#03100b',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -53,7 +55,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang="en"
+      lang="de"
       className={`${sans.variable} ${display.variable} ${mono.variable} dark`}
       suppressHydrationWarning
     >

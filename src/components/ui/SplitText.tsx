@@ -1,11 +1,12 @@
 'use client';
 
-import { useMemo } from 'react';
+import { CSSProperties, useMemo } from 'react';
 import { motion, Variants } from 'framer-motion';
 
 type Props = {
   text: string;
   className?: string;
+  style?: CSSProperties;
   delay?: number;
   duration?: number;
   stagger?: number;
@@ -17,6 +18,7 @@ type Props = {
 export function SplitText({
   text,
   className,
+  style,
   delay = 0,
   duration = 0.95,
   stagger = 0.06,
@@ -44,6 +46,7 @@ export function SplitText({
   return (
     <Comp
       className={className}
+      style={style}
       variants={container}
       initial="hidden"
       whileInView="visible"

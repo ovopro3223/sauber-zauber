@@ -58,10 +58,10 @@ export function Contact() {
 
             <div className="mt-14 space-y-5">
               {[
-                ['Munich · Atelier', 'Maximilianstraße 14'],
-                ['Berlin · Studio', 'Linienstraße 71'],
-                ['Concierge', '+49 (0)89 1090 5500'],
-                ['Letters', 'concierge@sauber-zauber.de'],
+                ['Telefon', '+49 176 23220656'],
+                ['E-Mail', 'info@sauberundzauber.de'],
+                ['Adresse', 'Dossestr. 6, 10247 Berlin'],
+                ['Antwort', 'Innerhalb von 24 Stunden'],
               ].map(([k, v], i) => (
                 <motion.div
                   key={k}

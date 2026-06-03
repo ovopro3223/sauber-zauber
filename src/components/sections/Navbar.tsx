@@ -3,16 +3,17 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Magnetic } from '@/components/ui/Magnetic';
+import { Logo } from '@/components/ui/Logo';
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { useCursor } from '@/components/providers/CursorProvider';
 
 const links = [
-  { href: '#services', label: 'Services' },
+  { href: '#services', label: 'Leistungen' },
   { href: '#reveal', label: 'Reveal' },
-  { href: '#process', label: 'Process' },
-  { href: '#testimonials', label: 'Voices' },
-  { href: '#pricing', label: 'Membership' },
-  { href: '#faq', label: 'Index' },
+  { href: '#process', label: 'Prozess' },
+  { href: '#testimonials', label: 'Stimmen' },
+  { href: '#pricing', label: 'Pakete' },
+  { href: '#faq', label: 'FAQ' },
 ];
 
 export function Navbar() {
@@ -22,7 +23,7 @@ export function Navbar() {
   const { setVariant } = useCursor();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -31,9 +32,9 @@ export function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -30, opacity: 0 }}
+        initial={{ y: -28, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ delay: 1.15, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-[padding] duration-500 ${
           scrolled ? 'glass-nav py-3' : 'py-5'
         }`}
@@ -45,23 +46,19 @@ export function Navbar() {
             onMouseEnter={() => setVariant('hover')}
             onMouseLeave={() => setVariant('default')}
           >
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-full border border-[var(--line-strong)]">
-              <span className="font-display text-[14px] leading-none tracking-tight">
-                S<span className="text-gold-soft">·</span>Z
-              </span>
-            </div>
-            <div className="hidden md:block">
-              <div className="font-display text-[15px] leading-none tracking-tight">
-                Sauber &amp; Zauber
+            <Logo size={44} />
+            <div className="hidden md:block leading-none">
+              <div className="font-display text-[20px] tracking-[0.01em]">
+                Sauber<span className="px-0.5 italic text-mint">&amp;</span>Zauber
               </div>
-              <div className="mt-1 text-[9px] uppercase tracking-[0.35em] text-[var(--muted)]">
-                Cleaning Atelier · Munich
+              <div className="mt-1.5 text-[9px] uppercase tracking-[0.35em] text-[var(--muted)]">
+                Berlin · Reinigung
               </div>
             </div>
           </a>
 
           <nav className="relative hidden lg:flex">
-            <ul className="flex items-center gap-7 text-[11px] uppercase tracking-[0.32em] text-[var(--fg-soft)]">
+            <ul className="flex items-center gap-7 text-[11px] uppercase tracking-[0.28em] text-[var(--fg-soft)]">
               {links.map((l) => (
                 <li key={l.href}>
                   <a
@@ -74,7 +71,7 @@ export function Navbar() {
                       <span className="block transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
                         {l.label}
                       </span>
-                      <span className="absolute inset-0 block translate-y-full text-gold-soft transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0">
+                      <span className="absolute inset-0 block translate-y-full text-mint transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0">
                         {l.label}
                       </span>
                     </span>
@@ -120,14 +117,23 @@ export function Navbar() {
               </AnimatePresence>
             </button>
 
+            <a
+              href="tel:+4917623220656"
+              className="hidden md:inline-flex items-center gap-2 rounded-full border border-[var(--line-strong)] bg-[var(--green-soft)] px-4 py-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-mint transition-colors hover:bg-[rgba(95,227,161,0.1)]"
+              onMouseEnter={() => setVariant('hover')}
+              onMouseLeave={() => setVariant('default')}
+            >
+              +49 176 23220656
+            </a>
+
             <Magnetic strength={0.18} range={70}>
               <a
                 href="#contact"
-                className="hidden md:inline-flex items-center gap-2 rounded-full bg-[var(--fg)] px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--bg)] transition-colors hover:bg-[var(--cream)]"
+                className="hidden md:inline-flex items-center gap-2 rounded-full bg-gradient-to-b from-[#6fefac] to-[#2fbf7a] px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#042014] shadow-[0_10px_30px_-10px_var(--green-glow)] transition-transform hover:-translate-y-0.5"
                 onMouseEnter={() => setVariant('hover')}
                 onMouseLeave={() => setVariant('default')}
               >
-                Book
+                Anfragen
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M13 5l7 7-7 7" />
                 </svg>
