@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sauber & Zauber — Andere schrubben, wir zaubern.</title>
+<meta name="description" content="Premium-Reinigung in Berlin. Haus, Büro, Glas, nach Bauphasen und Möbel — diskret, gründlich, magisch sauber." />
+<link rel="icon" type="image/png" href="/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-0: #ffffff;
+    --bg-1: #fafbf8;
+    --bg-2: #f3f7f3;
+    --ink: #0e2920;
+    --ink-soft: #3d5b4a;
+    --ink-mute: #6a8479;
+    --line: rgba(15, 65, 40, 0.10);
+    --line-strong: rgba(15, 65, 40, 0.22);
+    --green-1: #2fbf7a;
+    --green-2: #1d8f5a;
+    --green-3: #0e5a37;
+    --green-deep: #064128;
+    --green-glow: rgba(47, 191, 122, 0.30);
+    --green-soft: rgba(47, 191, 122, 0.06);
+    --serif: "Playfair Display", "Times New Roman", serif;
+    --sans: "Manrope", "Inter", system-ui, -apple-system, sans-serif;
+    --ease: cubic-bezier(.22, .61, .36, 1);
+    --ease-out: cubic-bezier(.16, 1, .3, 1);
+    --pulse-shadow-min: 0 4px 18px -6px rgba(47,191,122,0.30);
+    --pulse-shadow-max: 0 6px 28px -4px rgba(47,191,122,0.55);
+  }
+
+  [data-theme="dark"] {
+    --bg-0: #03100b;
+    --bg-1: #061a13;
+    --bg-2: #08251a;
+    --ink: #eaf6ee;
+    --ink-soft: #b9d4c2;
+    --ink-mute: #7f9d8a;
+    --line: rgba(170, 230, 195, 0.12);
+    --line-strong: rgba(170, 230, 195, 0.22);
+    --green-1: #5fe3a1;
+    --green-2: #2fbf7a;
+    --green-3: #1d8f5a;
+    --green-deep: #0e5a37;
+    --green-glow: rgba(95, 227, 161, 0.45);
+    --green-soft: rgba(95, 227, 161, 0.08);
+    --pulse-shadow-min: 0 0 22px rgba(95,227,161,0.30);
+    --pulse-shadow-max: 0 0 42px rgba(95,227,161,0.60);
+  }
+
+  body { transition: background-color .45s var(--ease), color .45s var(--ease); }
+  .bg-stage, nav.top, .form-card, .field input, .field select, .field textarea,
+  .check .box, .toast, .contact-card, .trust, .service-pick label, .card,
+  .eyebrow, .nav-links .call { transition: background .45s var(--ease), background-color .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease), color .45s var(--ease); }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; overflow-x: hidden; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg-0);
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ===== Ambient background ===== */
+  .bg-stage {
+    position: fixed; inset: 0; z-index: -3;
+    background:
+      radial-gradient(1200px 800px at 15% 10%, rgba(95, 227, 161, 0.16), transparent 60%),
+      radial-gradient(900px 700px at 85% 30%, rgba(47, 191, 122, 0.10), transparent 60%),
+      radial-gradient(1100px 900px at 50% 110%, rgba(29, 143, 90, 0.10), transparent 65%),
+      linear-gradient(180deg, #ffffff 0%, #f6fbf7 50%, #ffffff 100%);
+  }
+  .aurora {
+    position: fixed; inset: -20%; z-index: -2;
+    filter: blur(90px); opacity: 0.45; pointer-events: none;
+  }
+  .aurora span {
+    position: absolute; border-radius: 50%; mix-blend-mode: multiply; will-change: transform;
+  }
+  .aurora .a1 { width: 55vmax; height: 55vmax; left: -15%; top: -10%; background: radial-gradient(circle, rgba(95,227,161,0.35), transparent 60%); animation: drift1 22s ease-in-out infinite alternate; }
+  .aurora .a2 { width: 45vmax; height: 45vmax; right: -15%; top: 25%; background: radial-gradient(circle, rgba(47,191,122,0.30), transparent 60%); animation: drift2 28s ease-in-out infinite alternate; }
+  .aurora .a3 { width: 50vmax; height: 50vmax; left: 20%; bottom: -25%; background: radial-gradient(circle, rgba(29,143,90,0.30), transparent 60%); animation: drift3 26s ease-in-out infinite alternate; }
+  @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(8vw, 6vh) scale(1.1); } }
+  @keyframes drift2 { from { transform: translate(0,0) scale(1.05); } to { transform: translate(-6vw, 10vh) scale(0.95); } }
+  @keyframes drift3 { from { transform: translate(0,0) scale(1); } to { transform: translate(5vw, -8vh) scale(1.15); } }
+
+  #particles { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+  .grain {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    opacity: 0.06; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* ===== Layout ===== */
+  .container { width: min(1200px, 92%); margin-inline: auto; position: relative; z-index: 1; }
+
+  /* Nav */
+  nav.top {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.40));
+    border-bottom: 1px solid var(--line);
+    transition: background .4s var(--ease), border-color .4s var(--ease);
+  }
+  nav.top.scrolled { background: rgba(255,255,255,0.92); border-bottom-color: var(--line-strong); box-shadow: 0 4px 20px -8px rgba(15,65,40,0.10); }
+  nav .row { display: flex; align-items: center; justify-content: space-between; height: 78px; }
+
+  .brand {
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--serif); letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .brand-logo {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    box-shadow: 0 4px 18px -6px rgba(47,191,122,0.30);
+    animation: pulse 4s var(--ease) infinite;
+  }
+  .brand-logo img {
+    width: 46px; height: 46px; object-fit: contain;
+    filter: contrast(1.05) drop-shadow(0 2px 6px rgba(15,65,40,0.18));
+  }
+  .brand-text { display: flex; flex-direction: column; line-height: 1; }
+  .brand-text .name { font-size: 22px; font-weight: 500; letter-spacing: 0.04em; }
+  .brand-text .name .amp { font-style: italic; color: var(--green-1); font-weight: 400; padding: 0 2px; }
+  .brand-text .tag { font-family: var(--sans); font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-mute); margin-top: 4px; }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: var(--pulse-shadow-min); }
+    50%      { box-shadow: var(--pulse-shadow-max); }
+  }
+
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    color: var(--ink-soft); text-decoration: none; font-size: 12px;
+    letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+    transition: color .3s var(--ease);
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -8px;
+    height: 1px; background: var(--green-1); transform: scaleX(0); transform-origin: right;
+    transition: transform .4s var(--ease);
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .nav-links .call {
+    padding: 10px 18px; border-radius: 999px;
+    border: 1px solid rgba(47,191,122,0.30);
+    background: rgba(47,191,122,0.08);
+    color: var(--green-2);
+  }
+  .nav-links .call::after { display: none; }
+  .nav-links .call:hover { background: rgba(47,191,122,0.16); border-color: var(--green-1); }
+  .nav-links .call .call-short { display: none; }
+  @media (max-width: 820px) {
+    .nav-links a:not(.call) { display: none; }
+    .brand-text .tag { display: none; }
+    .brand { gap: 10px; }
+    .brand-text .name { font-size: 17px; letter-spacing: 0.02em; }
+    .brand-logo { width: 38px; height: 38px; }
+    .brand-logo img { width: 36px; height: 36px; }
+    nav .row { height: 64px; }
+    .nav-links { gap: 8px; }
+    .nav-links .call { padding: 7px 13px; font-size: 11px; letter-spacing: 0.18em; }
+    .nav-links .call .call-full { display: none; }
+    .nav-links .call .call-short { display: inline; }
+    .theme-toggle { width: 34px; height: 34px; }
+    .theme-toggle svg { width: 15px; height: 15px; }
+  }
+  @media (max-width: 380px) {
+    .brand { gap: 8px; }
+    .brand-text .name { font-size: 15px; }
+    .brand-logo { width: 34px; height: 34px; }
+    .brand-logo img { width: 32px; height: 32px; }
+    .nav-links { gap: 6px; }
+    .nav-links .call { padding: 6px 10px; font-size: 10.5px; letter-spacing: 0.14em; }
+    .theme-toggle { width: 32px; height: 32px; }
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 160px 0 90px;
+    text-align: center;
+    position: relative;
+  }
+  .hero-logo {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    margin: 0 auto 22px;
+    box-shadow: 0 12px 50px -10px rgba(47,191,122,0.30);
+    animation: float 6s ease-in-out infinite;
+  }
+  .hero-logo img {
+    width: 125px; height: 125px; object-fit: contain;
+    filter: contrast(1.05) drop-shadow(0 6px 18px rgba(15,65,40,0.22));
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--green-2);
+    padding: 8px 18px;
+    border: 1px solid rgba(47,191,122,0.25);
+    border-radius: 999px;
+    background: rgba(47,191,122,0.08);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 18px -8px rgba(47,191,122,0.20), inset 0 0 18px rgba(47,191,122,0.05);
+  }
+  .eyebrow::before, .eyebrow::after {
+    content: ""; width: 18px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--green-1));
+  }
+  .eyebrow::after { background: linear-gradient(90deg, var(--green-1), transparent); }
+
+  h1.hero-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(46px, 8vw, 104px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin: 28px 0 22px;
+    background: linear-gradient(180deg, #0e2920 0%, #1d8f5a 60%, #2fbf7a 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  h1.hero-title em {
+    font-style: italic; font-weight: 300;
+    background: linear-gradient(180deg, #2fbf7a, #1d8f5a);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    max-width: 620px; margin: 0 auto 40px;
+    color: var(--ink-soft); font-size: 17px; font-weight: 300;
+    line-height: 1.7;
+  }
+  .cta-row { display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .scroll-cue {
+    margin-top: 60px;
+    display: inline-flex; flex-direction: column; align-items: center; gap: 10px;
+    color: var(--ink-mute); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  }
+  .scroll-cue .line {
+    width: 1px; height: 50px;
+    background: linear-gradient(180deg, var(--green-1), transparent);
+    animation: scrollLine 2.4s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; }
+    50%      { opacity: 1;   transform: scaleY(1);   transform-origin: top; }
+  }
+
+  /* Sections */
+  section { padding: 110px 0; position: relative; }
+  .section-label {
+    display: block; text-align: center;
+    color: var(--green-1); font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  h2 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.1; text-align: center;
+    margin-bottom: 18px; letter-spacing: -0.01em;
+  }
+  h2 em { font-style: italic; color: var(--green-1); font-weight: 300; }
+  .section-sub {
+    text-align: center; color: var(--ink-soft);
+    max-width: 620px; margin: 0 auto 70px;
+    font-weight: 300; font-size: 16px;
+  }
+
+  /* Service cards */
+  .services {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  @media (max-width: 980px) { .services { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .services { grid-template-columns: 1fr; } }
+
+  .card {
+    position: relative;
+    padding: 38px 32px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(250,253,250,0.65));
+    border: 1px solid var(--line);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    box-shadow: 0 4px 20px -10px rgba(15,65,40,0.08);
+    transition: transform .6s var(--ease-out), border-color .6s var(--ease), box-shadow .6s var(--ease), background .6s var(--ease);
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(47,191,122,0.14), transparent 50%);
+    opacity: 0; transition: opacity .5s var(--ease);
+    pointer-events: none;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,253,250,0.92));
+    border-color: var(--green-1);
+    box-shadow: 0 30px 60px -25px rgba(15,65,40,0.18), 0 0 40px -20px var(--green-glow);
+  }
+  .card:hover::before { opacity: 1; }
+  .card .icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(180deg, rgba(47,191,122,0.16), rgba(47,191,122,0.04));
+    border: 1px solid rgba(47,191,122,0.20);
+    margin-bottom: 22px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 16px -8px rgba(47,191,122,0.20);
+  }
+  .card .icon svg { width: 26px; height: 26px; stroke: var(--green-1); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 { font-family: var(--serif); font-weight: 500; font-size: 24px; margin-bottom: 10px; letter-spacing: 0.01em; }
+  .card p { color: var(--ink-soft); font-size: 14.5px; font-weight: 300; }
+  .card .pick {
+    margin-top: 22px;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--green-1); font-weight: 500;
+  }
+  .card .pick svg { width: 14px; height: 14px; transition: transform .3s var(--ease); }
+  .card:hover .pick svg { transform: translateX(4px); }
+
+  /* Trust strip */
+  .trust {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin-top: 70px;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.80), rgba(250,253,250,0.55));
+    backdrop-filter: blur(14px);
+    box-shadow: 0 6px 28px -16px rgba(15,65,40,0.12);
+  }
+  .trust .item { text-align: center; padding: 8px; }
+  .trust .num {
+    font-family: var(--serif); font-size: 36px; font-weight: 500;
+    background: linear-gradient(180deg, #0e2920, #2fbf7a);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .trust .lbl { color: var(--ink-mute); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 6px; }
+  @media (max-width: 720px) { .trust { grid-template-columns: repeat(2, 1fr); } }
+
+  /* Form */
+  .form-wrap { max-width: 820px; margin: 0 auto; position: relative; }
+  .form-wrap::before {
+    content: ""; position: absolute; inset: -2px;
+    border-radius: 28px;
+    background: conic-gradient(from 0deg, transparent 0deg, var(--green-glow) 90deg, transparent 180deg, var(--green-glow) 270deg, transparent 360deg);
+    opacity: 0.22; filter: blur(20px); z-index: 0;
+    animation: rotateGlow 18s linear infinite;
+  }
+  @keyframes rotateGlow { to { transform: rotate(360deg); } }
+
+  .form-card {
+    position: relative; z-index: 1;
+    padding: 56px;
+    border-radius: 26px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,253,250,0.92));
+    border: 1px solid var(--line-strong);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+    box-shadow:
+      0 50px 100px -30px rgba(15,65,40,0.18),
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      0 0 80px -30px var(--green-glow);
+  }
+  @media (max-width: 640px) { .form-card { padding: 36px 22px; } }
+
+  .form-card h3 {
+    font-family: var(--serif); font-weight: 400; font-size: 32px;
+    margin-bottom: 8px; text-align: center;
+  }
+  .form-card .sub {
+    color: var(--ink-soft); font-size: 14px; text-align: center; margin-bottom: 36px;
+    font-weight: 300;
+  }
+
+  /* Service chooser inside the form */
+  .service-pick {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 760px) { .service-pick { grid-template-columns: repeat(2, 1fr); } }
+  .service-pick label {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px;
+    padding: 16px 10px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.70);
+    cursor: pointer;
+    text-align: center;
+    transition: border-color .3s var(--ease), background .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+  .service-pick input {
+    position: absolute;
+    width: 1px; height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    margin: 0;
+  }
+  .service-pick label svg { width: 22px; height: 22px; stroke: var(--ink-soft); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke .3s var(--ease); }
+  .service-pick label span { font-size: 11.5px; letter-spacing: 0.04em; color: var(--ink-soft); font-weight: 500; line-height: 1.25; }
+  .service-pick label:hover { border-color: var(--line-strong); }
+  .service-pick label:has(input:checked) { border-color: var(--green-1); background: rgba(47,191,122,0.10); box-shadow: 0 0 0 3px rgba(47,191,122,0.12), 0 0 30px -8px var(--green-glow); transform: translateY(-2px); }
+  .service-pick label:has(input:checked) svg { stroke: var(--green-1); }
+  .service-pick label:has(input:checked) span { color: var(--ink); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+
+  .field { position: relative; }
+  .field.full { grid-column: 1 / -1; }
+  .field label.lbl {
+    display: block;
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--ink-mute); margin-bottom: 10px; font-weight: 500;
+    transition: color .3s var(--ease);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 16px 18px;
+    background-color: rgba(255,255,255,0.85);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--ink);
+    font-family: var(--sans); font-size: 15px; font-weight: 400;
+    transition: border-color .35s var(--ease), background-color .35s var(--ease), box-shadow .35s var(--ease);
+    outline: none;
+  }
+  .field textarea { resize: vertical; min-height: 120px; }
+  .field input::placeholder, .field textarea::placeholder { color: var(--ink-mute); opacity: 0.7; }
+  .field select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237d958a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>"); background-repeat: no-repeat; background-position: right 18px center; padding-right: 44px; }
+  .field input:hover, .field select:hover, .field textarea:hover { border-color: var(--line-strong); }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    border-color: var(--green-1);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(47,191,122,0.12), 0 0 30px -8px var(--green-glow);
+  }
+  .field:focus-within label.lbl { color: var(--green-1); }
+  .field .glow {
+    position: absolute; inset: 28px -2px -8px -2px;
+    border-radius: 12px;
+    background: radial-gradient(60% 60% at 50% 100%, var(--green-glow), transparent 70%);
+    opacity: 0; transition: opacity .4s var(--ease);
+    pointer-events: none; filter: blur(14px); z-index: -1;
+  }
+  .field:focus-within .glow { opacity: 0.45; }
+
+  .checkbox-row {
+    display: flex; gap: 18px; flex-wrap: wrap; margin-top: 8px;
+  }
+  .check {
+    display: inline-flex; align-items: center; gap: 10px;
+    cursor: pointer; color: var(--ink-soft); font-size: 13.5px;
+    user-select: none;
+  }
+  .check input { display: none; }
+  .check .box {
+    width: 18px; height: 18px; border-radius: 5px;
+    border: 1px solid var(--line-strong);
+    background: rgba(255,255,255,0.85);
+    display: grid; place-items: center;
+    transition: all .25s var(--ease);
+  }
+  .check .box svg { width: 12px; height: 12px; stroke: #042014; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform: scale(0.6); transition: all .25s var(--ease); }
+  .check input:checked + .box { background: linear-gradient(180deg, #5fe3a1, #2fbf7a); border-color: var(--green-1); box-shadow: 0 0 18px var(--green-glow); }
+  .check input:checked + .box svg { opacity: 1; transform: scale(1); }
+
+  .submit-row {
+    margin-top: 36px;
+    display: flex; align-items: center; justify-content: space-between; gap: 18px;
+    flex-wrap: wrap;
+  }
+  .privacy { color: var(--ink-mute); font-size: 12px; max-width: 340px; line-height: 1.55; }
+  .privacy a { color: var(--ink-soft); }
+
+  .btn {
+    position: relative; overflow: hidden;
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 16px 32px;
+    border: none; cursor: pointer;
+    font-family: var(--sans); font-size: 13px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 600;
+    color: #042014;
+    background: linear-gradient(180deg, #6fefac 0%, #2fbf7a 100%);
+    border-radius: 999px;
+    box-shadow:
+      0 12px 40px -8px var(--green-glow),
+      inset 0 1px 0 rgba(255,255,255,0.4),
+      inset 0 -1px 0 rgba(0,0,0,0.15);
+    transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .btn.ghost {
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    box-shadow: none;
+  }
+  .btn.ghost:hover { background: rgba(95,227,161,0.06); border-color: var(--green-1); }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 60px -10px var(--green-glow), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(0,0,0,0.15);
+  }
+  .btn:active { transform: translateY(0); }
+  .btn .arrow { transition: transform .35s var(--ease); }
+  .btn:hover .arrow { transform: translateX(4px); }
+  .btn::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.4) 50%, transparent 80%);
+    transform: translateX(-100%); transition: transform .8s var(--ease);
+  }
+  .btn:hover::after { transform: translateX(100%); }
+
+  /* Contact strip */
+  .contact-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    margin-top: 50px;
+  }
+  @media (max-width: 760px) { .contact-strip { grid-template-columns: 1fr; } }
+  .contact-card {
+    padding: 26px;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(250,253,250,0.55));
+    backdrop-filter: blur(14px);
+    text-align: center;
+    transition: border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);
+    box-shadow: 0 4px 16px -10px rgba(15,65,40,0.10);
+  }
+  .contact-card:hover { border-color: var(--green-1); transform: translateY(-2px); box-shadow: 0 12px 32px -16px rgba(15,65,40,0.18); }
+  .contact-card .ico {
+    width: 38px; height: 38px; border-radius: 50%;
+    margin: 0 auto 12px;
+    display: grid; place-items: center;
+    background: rgba(47,191,122,0.10);
+    border: 1px solid rgba(47,191,122,0.22);
+  }
+  .contact-card .ico svg { width: 16px; height: 16px; stroke: var(--green-1); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .contact-card .lbl { color: var(--ink-mute); font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 6px; }
+  .contact-card .val { color: var(--ink); font-size: 15px; font-weight: 500; }
+  .contact-card a { color: inherit; text-decoration: none; }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(120%);
+    padding: 16px 28px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,253,250,0.95));
+    border: 1px solid var(--green-1);
+    border-radius: 999px; color: var(--ink);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px -10px rgba(15,65,40,0.18), 0 0 40px -10px var(--green-glow);
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; letter-spacing: 0.04em;
+    z-index: 100;
+    transition: transform .6s var(--ease-out);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-1); box-shadow: 0 0 12px var(--green-glow); animation: pulse 1.5s ease infinite; }
+
+  /* Footer */
+  footer {
+    padding: 70px 0 50px;
+    border-top: 1px solid var(--line);
+    color: var(--ink-mute);
+    margin-top: 80px;
+  }
+  footer .row {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 720px) { footer .row { grid-template-columns: 1fr; } }
+  footer h4 { font-family: var(--serif); font-size: 18px; color: var(--ink); margin-bottom: 14px; font-weight: 500; }
+  footer ul { list-style: none; }
+  footer li { margin-bottom: 8px; font-size: 14px; }
+  footer a { color: var(--ink-mute); text-decoration: none; transition: color .25s var(--ease); }
+  footer a:hover { color: var(--green-1); }
+  footer .copy { text-align: center; margin-top: 50px; font-size: 12px; letter-spacing: 0.1em; opacity: 0.7; }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 1s var(--ease-out), transform 1s var(--ease-out), filter 1s var(--ease-out);
+    transition-delay: var(--d, 0ms);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); filter: blur(0); }
+  .reveal.blur { filter: blur(8px); }
+  .reveal.blur.in { filter: blur(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+    .aurora, .brand-logo, .hero-logo, .scroll-cue .line, .form-wrap::before, .toast .dot { animation: none !important; }
+  }
+
+  /* ===== Theme toggle button ===== */
+  .theme-toggle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    background: rgba(47,191,122,0.06);
+    color: var(--ink-soft);
+    cursor: pointer;
+    display: grid; place-items: center;
+    transition: color .35s var(--ease), border-color .35s var(--ease), background .35s var(--ease), transform .35s var(--ease);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover { color: var(--green-1); border-color: var(--green-1); background: rgba(47,191,122,0.12); transform: scale(1.05); }
+  .theme-toggle:active { transform: scale(0.95); }
+  .theme-toggle svg { width: 18px; height: 18px; position: absolute; transition: transform .55s var(--ease), opacity .35s var(--ease); fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .theme-toggle .moon { transform: scale(1) rotate(0); opacity: 1; }
+  .theme-toggle .sun { transform: scale(0) rotate(-90deg); opacity: 0; }
+  [data-theme="dark"] .theme-toggle .moon { transform: scale(0) rotate(90deg); opacity: 0; }
+  [data-theme="dark"] .theme-toggle .sun { transform: scale(1) rotate(0); opacity: 1; }
+
+  /* ===== DARK THEME OVERRIDES ===== */
+  [data-theme="dark"] .bg-stage {
+    background:
+      radial-gradient(1200px 800px at 15% 10%, rgba(47, 191, 122, 0.18), transparent 60%),
+      radial-gradient(900px 700px at 85% 30%, rgba(95, 227, 161, 0.12), transparent 60%),
+      radial-gradient(1100px 900px at 50% 110%, rgba(29, 143, 90, 0.22), transparent 65%),
+      linear-gradient(180deg, #02100a 0%, #03150e 50%, #02100a 100%);
+  }
+  [data-theme="dark"] .aurora { opacity: 0.65; }
+  [data-theme="dark"] .aurora span { mix-blend-mode: screen; }
+  [data-theme="dark"] .aurora .a1 { background: radial-gradient(circle, rgba(95,227,161,0.55), transparent 60%); }
+  [data-theme="dark"] .aurora .a2 { background: radial-gradient(circle, rgba(47,191,122,0.45), transparent 60%); }
+  [data-theme="dark"] .aurora .a3 { background: radial-gradient(circle, rgba(29,143,90,0.55), transparent 60%); }
+
+  [data-theme="dark"] nav.top { background: linear-gradient(180deg, rgba(3,16,11,0.55), rgba(3,16,11,0.15)); }
+  [data-theme="dark"] nav.top.scrolled { background: rgba(3,16,11,0.78); box-shadow: none; }
+
+  [data-theme="dark"] .brand-logo { box-shadow: 0 0 26px rgba(95,227,161,0.35); }
+  [data-theme="dark"] .brand-logo img { filter: brightness(1.3) saturate(1.2) drop-shadow(0 0 6px rgba(95,227,161,0.55)); }
+  [data-theme="dark"] .hero-logo { box-shadow: 0 0 80px rgba(95,227,161,0.45); }
+  [data-theme="dark"] .hero-logo img { filter: brightness(1.3) saturate(1.2) drop-shadow(0 0 18px rgba(95,227,161,0.65)); }
+
+  [data-theme="dark"] .eyebrow {
+    color: var(--green-1);
+    border-color: var(--line-strong);
+    background: rgba(95,227,161,0.04);
+    box-shadow: 0 0 30px rgba(95,227,161,0.08), inset 0 0 18px rgba(95,227,161,0.05);
+  }
+
+  [data-theme="dark"] .nav-links .call {
+    border: 1px solid var(--line-strong);
+    background: rgba(95,227,161,0.04);
+    color: var(--green-1);
+  }
+  [data-theme="dark"] .nav-links .call:hover { background: rgba(95,227,161,0.10); border-color: var(--line-strong); }
+
+  [data-theme="dark"] .theme-toggle {
+    background: rgba(95,227,161,0.04);
+    border-color: var(--line-strong);
+    color: var(--ink-soft);
+  }
+  [data-theme="dark"] .theme-toggle:hover {
+    color: var(--green-1); border-color: var(--green-1);
+    background: rgba(95,227,161,0.10);
+  }
+
+  [data-theme="dark"] h1.hero-title {
+    background: linear-gradient(180deg, #f4fff8 0%, #b8e6cd 60%, #6bb98c 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  [data-theme="dark"] h1.hero-title em {
+    background: linear-gradient(180deg, #5fe3a1, #2fbf7a);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  [data-theme="dark"] .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    box-shadow: none;
+  }
+  [data-theme="dark"] .card::before { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(95,227,161,0.12), transparent 50%); }
+  [data-theme="dark"] .card:hover {
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    border-color: var(--line-strong);
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6), 0 0 60px -20px var(--green-glow);
+  }
+  [data-theme="dark"] .card .icon {
+    background: linear-gradient(180deg, rgba(95,227,161,0.20), rgba(47,191,122,0.05));
+    border: 1px solid var(--line-strong);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 0 28px rgba(95,227,161,0.10);
+  }
+
+  [data-theme="dark"] .trust {
+    background: linear-gradient(180deg, rgba(8,30,22,0.5), rgba(4,18,13,0.3));
+    box-shadow: none;
+  }
+  [data-theme="dark"] .trust .num {
+    background: linear-gradient(180deg, #f4fff8, #6bb98c);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  [data-theme="dark"] .form-card {
+    background: linear-gradient(180deg, rgba(8,30,22,0.86), rgba(4,18,13,0.86));
+    box-shadow:
+      0 50px 100px -30px rgba(0,0,0,0.7),
+      inset 0 1px 0 rgba(255,255,255,0.05),
+      0 0 80px -30px var(--green-glow);
+  }
+
+  [data-theme="dark"] .service-pick label { background: rgba(2,12,8,0.5); }
+  [data-theme="dark"] .service-pick label:has(input:checked) {
+    background: rgba(95,227,161,0.08);
+    box-shadow: 0 0 0 3px rgba(95,227,161,0.10), 0 0 30px -8px var(--green-glow);
+  }
+
+  [data-theme="dark"] .field input,
+  [data-theme="dark"] .field select,
+  [data-theme="dark"] .field textarea { background-color: rgba(2,12,8,0.6); }
+  [data-theme="dark"] .field select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237f9d8a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  }
+  [data-theme="dark"] .field input:focus,
+  [data-theme="dark"] .field select:focus,
+  [data-theme="dark"] .field textarea:focus {
+    background-color: rgba(2,16,11,0.85);
+    box-shadow: 0 0 0 4px rgba(95,227,161,0.10), 0 0 30px -8px var(--green-glow);
+  }
+
+  [data-theme="dark"] .check .box { background: rgba(2,12,8,0.6); }
+  [data-theme="dark"] .check input:checked + .box { background: linear-gradient(180deg, #6fefac, #2fbf7a); }
+
+  [data-theme="dark"] .contact-card {
+    background: linear-gradient(180deg, rgba(8,30,22,0.55), rgba(4,18,13,0.35));
+    box-shadow: none;
+  }
+  [data-theme="dark"] .contact-card:hover { border-color: var(--line-strong); box-shadow: none; }
+  [data-theme="dark"] .contact-card .ico {
+    background: rgba(95,227,161,0.08);
+    border-color: var(--line-strong);
+  }
+
+  [data-theme="dark"] .toast {
+    background: linear-gradient(180deg, rgba(8,30,22,0.95), rgba(4,18,13,0.95));
+    box-shadow: 0 20px 60px -10px rgba(0,0,0,0.6), 0 0 40px -10px var(--green-glow);
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-stage"></div>
+<div class="aurora" aria-hidden="true">
+  <span class="a1"></span><span class="a2"></span><span class="a3"></span>
+</div>
+<canvas id="particles" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="top">
+  <div class="container row">
+    <a class="brand" href="/">
+      <div class="brand-logo"><img src="/logo.png" alt="Sauber & Zauber Logo" /></div>
+      <div class="brand-text">
+        <span class="name">Sauber<span class="amp">&</span>Zauber</span>
+        <span class="tag">Berlin · Reinigung</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#buchen">Buchen</a>
+      <a href="#kontakt">Kontakt</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Design umschalten" title="Hell/Dunkel umschalten">
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <line x1="12" y1="2.5" x2="12" y2="5"/>
+          <line x1="12" y1="19" x2="12" y2="21.5"/>
+          <line x1="4.5" y1="4.5" x2="6.3" y2="6.3"/>
+          <line x1="17.7" y1="17.7" x2="19.5" y2="19.5"/>
+          <line x1="2.5" y1="12" x2="5" y2="12"/>
+          <line x1="19" y1="12" x2="21.5" y2="12"/>
+          <line x1="4.5" y1="19.5" x2="6.3" y2="17.7"/>
+          <line x1="17.7" y1="6.3" x2="19.5" y2="4.5"/>
+        </svg>
+      </button>
+      <a href="tel:+4917623220656" class="call">
+        <span class="call-full">+49 176 23220656</span>
+        <span class="call-short">Kontakt</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="container">
+    <div class="reveal"><div class="hero-logo"><img src="/logo.png" alt="" /></div></div>
+    <div class="reveal blur" style="--d: 60ms;"><span class="eyebrow">Premium-Reinigung · Berlin</span></div>
+    <h1 class="hero-title reveal" style="--d: 140ms;">
+      Andere schrubben.<br/>
+      Wir <em>zaubern</em>.
+    </h1>
+    <p class="reveal" style="--d: 260ms;">
+      Diskrete, gründliche und zuverlässige Reinigungsdienste für Berliner Zuhause und Büros —
+      auf Wunsch mit umweltfreundlichen Mitteln und festem Stammteam.
+    </p>
+    <div class="cta-row reveal" style="--d: 360ms;">
+      <a href="#buchen" class="btn">
+        Jetzt anfragen
+        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#leistungen" class="btn ghost">Leistungen ansehen</a>
+    </div>
+    <div class="scroll-cue reveal" style="--d: 480ms;">
+      <span>Scrollen</span>
+      <span class="line"></span>
+    </div>
+  </div>
+</header>
+
+<section id="leistungen">
+  <div class="container">
+    <span class="section-label reveal">Unsere Leistungen</span>
+    <h2 class="reveal" style="--d: 80ms;">Was wir <em>verzaubern</em>.</h2>
+    <p class="section-sub reveal" style="--d: 160ms;">
+      Fünf sorgfältig kuratierte Reinigungsleistungen — von der Wohnung bis zum Büroturm.
+      Wählen Sie unten Ihre Leistung, und wir kümmern uns um den Rest.
+    </p>
+
+    <div class="services">
+      <div class="card reveal" data-service="haus" style="--d: 0ms;">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+        </div>
+        <h3>Hausreinigung</h3>
+        <p>Wohnungen, Reihen- und Mehrfamilienhäuser — gründlich, schonend und auf Ihren Rhythmus abgestimmt.</p>
+        <span class="pick">Wählen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+
+      <div class="card reveal" data-service="buero" style="--d: 100ms;">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="4" x2="9" y2="20"/></svg>
+        </div>
+        <h3>Büroreinigung</h3>
+        <p>Gewerbliche Räume und Büros — diskret außerhalb Ihrer Geschäftszeiten, damit der Tag frisch beginnt.</p>
+        <span class="pick">Wählen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+
+      <div class="card reveal" data-service="glas" style="--d: 200ms;">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/><path d="M15 6l3-2"/></svg>
+        </div>
+        <h3>Glas- & Fensterreinigung</h3>
+        <p>Streifenfreier Glanz an Fenstern, Rahmen und Glasflächen — auch in höheren Etagen, umweltbewusst gearbeitet.</p>
+        <span class="pick">Wählen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+
+      <div class="card reveal" data-service="bau" style="--d: 300ms;">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><circle cx="12" cy="14" r="1.5"/><path d="M9 11l1.5-1.5M15 11l-1.5-1.5"/></svg>
+        </div>
+        <h3>Reinigung nach Bauphasen</h3>
+        <p>Bauschutt, Staub und Rückstände verschwinden — übergabefertige Räume nach Renovierung oder Neubau.</p>
+        <span class="pick">Wählen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+
+      <div class="card reveal" data-service="moebel" style="--d: 400ms;">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><path d="M4 18v-6a3 3 0 013-3h10a3 3 0 013 3v6"/><path d="M2 18h20"/><path d="M6 22v-4M18 22v-4"/><path d="M7 12V8a2 2 0 012-2h6a2 2 0 012 2v4"/></svg>
+        </div>
+        <h3>Möbelreinigung</h3>
+        <p>Sofas, Sessel und Polster — tief, schonend und mit hygienischer Sorgfalt aufgefrischt.</p>
+        <span class="pick">Wählen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+
+      <div class="card reveal" data-service="andere" style="--d: 500ms;">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3l2 6 6 1-4.5 4 1.5 6L12 17l-5 3 1.5-6L4 10l6-1z"/></svg>
+        </div>
+        <h3>Sonderwünsche</h3>
+        <p>Etwas Besonderes geplant? Erzählen Sie es uns — wir finden gemeinsam die passende Lösung.</p>
+        <span class="pick">Anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div>
+    </div>
+
+    <div class="trust reveal" style="--d: 200ms;">
+      <div class="item"><div class="num">100%</div><div class="lbl">Versichert</div></div>
+      <div class="item"><div class="num">24h</div><div class="lbl">Antwort</div></div>
+      <div class="item"><div class="num">5★</div><div class="lbl">Kundenstimmen</div></div>
+      <div class="item"><div class="num">Eco</div><div class="lbl">Auf Wunsch</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="buchen">
+  <div class="container">
+    <span class="section-label reveal">Buchung</span>
+    <h2 class="reveal" style="--d: 80ms;">Termin <em>anfragen</em>.</h2>
+    <p class="section-sub reveal" style="--d: 160ms;">
+      Senden Sie uns Ihre Wünsche — wir melden uns innerhalb von 24 Stunden mit
+      einem unverbindlichen Angebot und einem freien Termin.
+    </p>
+
+    <div class="form-wrap reveal blur" style="--d: 240ms;">
+      <form class="form-card" id="reserveForm" autocomplete="off" novalidate
+            action="https://formsubmit.co/ajax/info@sauberundzauber.de" method="POST">
+        <input type="hidden" name="_subject" value="Neue Reinigungsanfrage — Sauber & Zauber" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+        <h3>Reinigung anfragen</h3>
+        <p class="sub">Wählen Sie Ihre Leistung und hinterlassen Sie Ihre Daten — kein Konto nötig.</p>
+
+        <div class="service-pick" role="radiogroup" aria-label="Leistung wählen">
+          <label>
+            <input type="radio" name="service" value="Hausreinigung" required />
+            <div class="body" tabindex="0">
+              <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+              <span>Haus</span>
+            </div>
+          </label>
+          <label>
+            <input type="radio" name="service" value="Büroreinigung" />
+            <div class="body" tabindex="0">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="4" x2="9" y2="20"/></svg>
+              <span>Büro</span>
+            </div>
+          </label>
+          <label>
+            <input type="radio" name="service" value="Glas- & Fensterreinigung" />
+            <div class="body" tabindex="0">
+              <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+              <span>Glas</span>
+            </div>
+          </label>
+          <label>
+            <input type="radio" name="service" value="Reinigung nach Bauphasen" />
+            <div class="body" tabindex="0">
+              <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/></svg>
+              <span>Nach Bau</span>
+            </div>
+          </label>
+          <label>
+            <input type="radio" name="service" value="Möbelreinigung" />
+            <div class="body" tabindex="0">
+              <svg viewBox="0 0 24 24"><path d="M4 18v-6a3 3 0 013-3h10a3 3 0 013 3v6"/><path d="M2 18h20"/></svg>
+              <span>Möbel</span>
+            </div>
+          </label>
+        </div>
+
+        <div class="grid">
+          <div class="field">
+            <label class="lbl" for="firstName">Vorname</label>
+            <input id="firstName" name="firstName" type="text" placeholder="Anna" required />
+            <div class="glow"></div>
+          </div>
+          <div class="field">
+            <label class="lbl" for="lastName">Nachname</label>
+            <input id="lastName" name="lastName" type="text" placeholder="Schmidt" required />
+            <div class="glow"></div>
+          </div>
+          <div class="field">
+            <label class="lbl" for="email">E-Mail</label>
+            <input id="email" name="email" type="email" placeholder="anna@beispiel.de" required />
+            <div class="glow"></div>
+          </div>
+          <div class="field">
+            <label class="lbl" for="phone">Telefon</label>
+            <input id="phone" name="phone" type="tel" placeholder="+49 30 1234567" />
+            <div class="glow"></div>
+          </div>
+          <div class="field">
+            <label class="lbl" for="address">Adresse</label>
+            <input id="address" name="address" type="text" placeholder="Dossestr. 6, 10247 Berlin" required />
+            <div class="glow"></div>
+          </div>
+          <div class="field">
+            <label class="lbl" for="propertyType">Objekttyp</label>
+            <select id="propertyType" name="propertyType" required>
+              <option value="">Bitte wählen</option>
+              <option>Wohnung</option>
+              <option>Einfamilienhaus</option>
+              <option>Mehrfamilienhaus</option>
+              <option>Büro / Gewerbe</option>
+              <option>Sonstiges</option>
+            </select>
+            <div class="glow"></div>
+          </div>
+          <div class="field">
+            <label class="lbl" for="size">Größe (m²)</label>
+            <input id="size" name="size" type="number" min="10" placeholder="z. B. 85" />
+            <div class="glow"></div>
+          </div>
+          <div class="field">
+            <label class="lbl" for="frequency">Häufigkeit</label>
+            <select id="frequency" name="frequency" required>
+              <option value="">Bitte wählen</option>
+              <option>Einmalig</option>
+              <option>Wöchentlich</option>
+              <option>Zweiwöchentlich</option>
+              <option>Monatlich</option>
+            </select>
+            <div class="glow"></div>
+          </div>
+          <div class="field">
+            <label class="lbl" for="date">Wunschtermin</label>
+            <input id="date" name="date" type="date" required />
+            <div class="glow"></div>
+          </div>
+          <div class="field">
+            <label class="lbl" for="time">Wunschzeit</label>
+            <select id="time" name="time">
+              <option value="">Beliebig</option>
+              <option>Vormittags (08 – 12 Uhr)</option>
+              <option>Mittags (12 – 15 Uhr)</option>
+              <option>Nachmittags (15 – 18 Uhr)</option>
+              <option>Abends (18 – 21 Uhr)</option>
+            </select>
+            <div class="glow"></div>
+          </div>
+          <div class="field full">
+            <label class="lbl" for="notes">Anmerkungen</label>
+            <textarea id="notes" name="notes" placeholder="Besondere Wünsche, Zugang zum Objekt, Haustiere, Allergien …"></textarea>
+            <div class="glow"></div>
+          </div>
+          <div class="field full">
+            <div class="checkbox-row">
+              <label class="check">
+                <input type="checkbox" name="eco" />
+                <span class="box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>Bio-zertifizierte Reinigungsmittel</span>
+              </label>
+              <label class="check">
+                <input type="checkbox" name="consent" required />
+                <span class="box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>Ich stimme der <a href="https://sauberundzauber.de/datenschutz/" target="_blank" rel="noopener" style="color: var(--green-1);">Datenschutzerklärung</a> zu</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="submit-row">
+          <p class="privacy">
+            Ihre Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage genutzt — und nie weitergegeben.
+          </p>
+          <button class="btn" type="submit">
+            Anfrage senden
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="contact-strip" id="kontakt">
+      <div class="contact-card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.86 19.86 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.86 19.86 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.79a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.89.34 1.83.57 2.79.7A2 2 0 0122 16.92z"/></svg></div>
+        <div class="lbl">Telefon</div>
+        <div class="val"><a href="tel:+4917623220656">+49 176 23220656</a></div>
+      </div>
+      <div class="contact-card reveal" style="--d: 100ms;">
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></div>
+        <div class="lbl">E-Mail</div>
+        <div class="val"><a href="mailto:info@sauberundzauber.de">info@sauberundzauber.de</a></div>
+      </div>
+      <div class="contact-card reveal" style="--d: 200ms;">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="lbl">Adresse</div>
+        <div class="val">Dossestr. 6, 10247 Berlin</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div>
+        <a class="brand" href="/" style="margin-bottom: 16px;">
+          <div class="brand-logo"><img src="/logo.png" alt="" /></div>
+          <div class="brand-text">
+            <span class="name" style="color: var(--ink);">Sauber<span class="amp">&</span>Zauber</span>
+            <span class="tag">Andere schrubben, wir zaubern</span>
+          </div>
+        </a>
+        <p style="margin-top: 18px; max-width: 360px; font-size: 14px; line-height: 1.7;">
+          Premium-Reinigungsdienste in Berlin — diskret, gründlich, magisch sauber.
+        </p>
+      </div>
+      <div>
+        <h4>Leistungen</h4>
+        <ul>
+          <li><a href="#leistungen">Hausreinigung</a></li>
+          <li><a href="#leistungen">Büroreinigung</a></li>
+          <li><a href="#leistungen">Glas- & Fensterreinigung</a></li>
+          <li><a href="#leistungen">Reinigung nach Bauphasen</a></li>
+          <li><a href="#leistungen">Möbelreinigung</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="tel:+4917623220656">+49 176 23220656</a></li>
+          <li><a href="mailto:info@sauberundzauber.de">info@sauberundzauber.de</a></li>
+          <li>Dossestr. 6, 10247 Berlin</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">© 2026 Sauber & Zauber · Alle Rechte vorbehalten · <a href="https://sauberundzauber.de/impressum/" target="_blank" rel="noopener">Impressum</a> · <a href="https://sauberundzauber.de/datenschutz/" target="_blank" rel="noopener">Datenschutz</a></div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="dot"></span>
+  <span>Anfrage erhalten — wir melden uns innerhalb von 24 Stunden.</span>
+</div>
+
+<script>
+  // Theme toggle (light <-> dark) with localStorage persistence
+  (() => {
+    const KEY = 'sz-theme';
+    const root = document.documentElement;
+    const saved = localStorage.getItem(KEY);
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (prefersDark ? 'dark' : 'light');
+    root.setAttribute('data-theme', initial);
+
+    const btn = document.getElementById('themeToggle');
+    btn.addEventListener('click', () => {
+      const cur = root.getAttribute('data-theme');
+      const next = cur === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem(KEY, next);
+    });
+  })();
+
+  // Process logo: make white background truly transparent
+  (() => {
+    const src = '/logo.png';
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      try {
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i], g = data[i + 1], b = data[i + 2];
+          const maxC = Math.max(r, g, b);
+          const minC = Math.min(r, g, b);
+          const sat = maxC === 0 ? 0 : (maxC - minC) / maxC;
+          if (maxC > 245 && sat < 0.08) {
+            data[i + 3] = 0;
+          } else if (maxC > 215 && sat < 0.15) {
+            const t = (maxC - 215) / 30;
+            data[i + 3] = Math.round(data[i + 3] * (1 - t));
+          }
+        }
+        ctx.putImageData(imageData, 0, 0);
+        const url = canvas.toDataURL('image/png');
+        document.querySelectorAll('img').forEach(el => {
+          if ((el.getAttribute('src') || '').endsWith(src)) el.src = url;
+        });
+      } catch (e) { /* CORS issue when opened via file:// in some browsers */ }
+    };
+    img.src = src;
+  })();
+
+  // Nav scroll state
+  const nav = document.querySelector('nav.top');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 24);
+  }, { passive: true });
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Card mouse-light tracking + click to choose service
+  const serviceMap = {
+    haus: 'Hausreinigung',
+    buero: 'Büroreinigung',
+    glas: 'Glas- & Fensterreinigung',
+    bau: 'Reinigung nach Bauphasen',
+    moebel: 'Möbelreinigung',
+    andere: ''
+  };
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', (ev) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((ev.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((ev.clientY - r.top) / r.height * 100) + '%');
+    });
+    card.addEventListener('click', () => {
+      const key = card.dataset.service;
+      const val = serviceMap[key];
+      if (val) {
+        const radio = document.querySelector(`input[name="service"][value="${val}"]`);
+        if (radio) radio.checked = true;
+      }
+      document.getElementById('buchen').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Form submit
+  const form = document.getElementById('reserveForm');
+  const toast = document.getElementById('toast');
+  const toastText = toast.querySelector('span:last-child');
+  const toastDefault = toastText.textContent;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    const btn = form.querySelector('button.btn');
+    const original = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = 'Wird gesendet …';
+
+    try {
+      console.log('[Form] Sending to:', form.action);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      console.log('[Form] Response status:', response.status, response.statusText);
+      const data = await response.json().catch(() => ({}));
+      console.log('[Form] Response body:', data);
+
+      const ok = response.ok && (data.success === 'true' || data.success === true || data.success === undefined);
+      if (ok) {
+        toastText.textContent = toastDefault;
+        toast.style.borderColor = '';
+        toast.classList.add('show');
+        form.reset();
+      } else {
+        throw new Error(data.message || `HTTP ${response.status}`);
+      }
+    } catch (err) {
+      console.error('[Form] Send failed:', err);
+      toastText.textContent = 'Senden fehlgeschlagen — bitte später erneut versuchen oder E-Mail senden.';
+      toast.style.borderColor = '#e3805f';
+      toast.classList.add('show');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = original;
+      setTimeout(() => toast.classList.remove('show'), 5000);
+    }
+  });
+
+  // Minimum date = today
+  document.getElementById('date').min = new Date().toISOString().split('T')[0];
+
+  // ===== Particles =====
+  (() => {
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let w, h, dpr;
+    const particles = [];
+    const COUNT = Math.min(70, Math.max(28, Math.floor(window.innerWidth / 22)));
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.width = window.innerWidth * dpr;
+      h = canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function rand(a, b) { return a + Math.random() * (b - a); }
+
+    class P {
+      constructor() { this.reset(true); }
+      reset(initial) {
+        this.x = rand(0, w);
+        this.y = initial ? rand(0, h) : h + rand(0, h * 0.2);
+        this.r = rand(0.6, 2.4) * dpr;
+        this.vx = rand(-0.08, 0.08) * dpr;
+        this.vy = -rand(0.12, 0.5) * dpr;
+        this.life = rand(0.5, 1);
+        this.tw = rand(0.005, 0.02);
+        this.phase = rand(0, Math.PI * 2);
+        this.hue = rand(140, 160);
+      }
+      step() {
+        this.x += this.vx; this.y += this.vy; this.phase += this.tw;
+        if (this.y < -10 || this.x < -20 || this.x > w + 20) this.reset(false);
+      }
+      draw() {
+        const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const alpha = ((dark ? 0.35 : 0.20) + Math.sin(this.phase) * (dark ? 0.35 : 0.20)) * this.life;
+        const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * 6);
+        if (dark) {
+          grad.addColorStop(0, `hsla(${this.hue}, 80%, 70%, ${alpha})`);
+          grad.addColorStop(0.4, `hsla(${this.hue}, 80%, 60%, ${alpha * 0.4})`);
+          grad.addColorStop(1, 'hsla(150, 80%, 60%, 0)');
+        } else {
+          grad.addColorStop(0, `hsla(${this.hue}, 75%, 38%, ${alpha * 0.6})`);
+          grad.addColorStop(0.4, `hsla(${this.hue}, 75%, 32%, ${alpha * 0.25})`);
+          grad.addColorStop(1, 'hsla(150, 75%, 30%, 0)');
+        }
+        ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.r * 6, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = dark
+          ? `hsla(${this.hue}, 95%, 85%, ${Math.min(1, alpha + 0.2)})`
+          : `hsla(${this.hue}, 70%, 42%, ${Math.min(0.8, alpha + 0.15)})`;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    for (let i = 0; i < COUNT; i++) particles.push(new P());
+
+    let running = true;
+    document.addEventListener('visibilitychange', () => { running = !document.hidden; if (running) loop(); });
+    function loop() {
+      if (!running) return;
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalCompositeOperation = document.documentElement.getAttribute('data-theme') === 'dark' ? 'lighter' : 'source-over';
+      for (const p of particles) { p.step(); p.draw(); }
+      requestAnimationFrame(loop);
+    }
+    loop();
+  })();
+</script>
+
+</body>
+</html>

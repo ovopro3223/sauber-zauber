@@ -312,7 +312,7 @@ function BespokeCard({
 }) {
   return (
     <a
-      href="#contact"
+      href="/anfrage"
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
       className="group relative flex h-auto md:h-[58vh] w-full md:w-[70vw] md:max-w-[420px] shrink-0 flex-col items-start justify-between gap-8 rounded-[20px] border border-[var(--line)] bg-[var(--glass)] p-8 md:p-10"

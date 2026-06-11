@@ -142,7 +142,7 @@ export function Navbar() {
 
             <Magnetic strength={0.18} range={70}>
               <a
-                href="#contact"
+                href="/anfrage"
                 className="hidden md:inline-flex items-center gap-2 rounded-full bg-gradient-to-b from-[#6fefac] to-[#2fbf7a] px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#042014] shadow-[0_10px_30px_-10px_var(--green-glow)] transition-transform hover:-translate-y-0.5"
                 onMouseEnter={() => setVariant('hover')}
                 onMouseLeave={() => setVariant('default')}

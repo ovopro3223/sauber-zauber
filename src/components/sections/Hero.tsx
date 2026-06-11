@@ -95,7 +95,7 @@ export function Hero() {
         >
           <Magnetic strength={0.28} range={120}>
             <a
-              href="#contact"
+              href="/anfrage"
               className="btn-primary"
               onMouseEnter={() => setVariant('hover')}
               onMouseLeave={() => setVariant('default')}

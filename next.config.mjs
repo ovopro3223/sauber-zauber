@@ -7,6 +7,12 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['framer-motion'],
   },
+  async rewrites() {
+    return [
+      // Serve the standalone Anfrage form (public/anfrage.html) at a clean URL
+      { source: '/anfrage', destination: '/anfrage.html' },
+    ];
+  },
 };
 
 export default nextConfig;

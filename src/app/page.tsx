@@ -5,7 +5,6 @@ import { BeforeAfter } from '@/components/sections/BeforeAfter';
 import { Process } from '@/components/sections/Process';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { FAQ } from '@/components/sections/FAQ';
-import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/sections/Footer';
 
 export default function HomePage() {
@@ -18,7 +17,6 @@ export default function HomePage() {
       <Process />
       <Testimonials />
       <FAQ />
-      <Contact />
       <Footer />
     </>
   );
